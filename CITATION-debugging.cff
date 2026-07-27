@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this guide in your work, please cite it as below."
+title: "Debugging Field Manual"
+type: software
+authors:
+  - name: "Made in Jurgistan"
+    website: "https://Made-in-Jurgistan.github.io"
+repository-code: "https://github.com/Made-in-Jurgistan/debugging-field-manual-2026"
+url: "https://Made-in-Jurgistan.github.io/debugging-field-manual/"
+version: "2026.2.0"
+date-released: "2026-07-24"
+license: CC-BY-SA-4.0
+keywords:
+  - debugging
+  - troubleshooting
+  - root cause analysis
+  - observability
+  - OpenTelemetry
+  - profiling
+  - AI-augmented debugging
+  - postmortem
+  - incident response
+abstract: "Language-agnostic strategies, instrumentation, and AI-augmented workflows for finding and fixing any bug in any system."

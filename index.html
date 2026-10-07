@@ -70,7 +70,7 @@
         --ink-700: #46413c;
         --ink-600: #5a534c;
         --ink-500: #6e665e;
-        --ink-400: #8d857c;
+        --ink-400: #6e665e;
         --ink-300: #aca49b;
         --ink-200: #ccc5bc;
         --ink-100: #e4ddd4;
@@ -87,7 +87,7 @@
         --beginner-bg: #e9f6ee;
         --beginner-bd: #9ed4b4;
 
-        --intermediate: #b25a1a;
+        --intermediate: #9c4d12;
         --inter-bg: #fdf2e6;
         --inter-bd: #ecc08a;
 
@@ -107,11 +107,11 @@
         --code-bg: #f0ebe2;
         --code-kw: #6b2d8b;
         --code-fn: #0e6f8e;
-        --code-str: #2a7a48;
+        --code-str: #22693c;
         --code-cm: #6e655a;
-        --code-num: #b25a1a;
+        --code-num: #9c4d12;
         --code-ty: #1e5ea8;
-        --code-an: #0e896a;
+        --code-an: #0b6e55;
 
         /* ── Layout ── */
         --sidebar-w: 274px;
@@ -256,6 +256,17 @@
         }
       }
 
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
       .sidebar-brand {
         padding: 0 22px 24px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -271,7 +282,7 @@
         margin-bottom: 7px;
         display: block;
       }
-      .sidebar-brand h2 {
+      .sidebar-brand .brand-title {
         font-family: var(--f-display);
         font-size: 14.5px;
         font-weight: 600;
@@ -712,6 +723,11 @@
         text-decoration-thickness: from-font;
         text-decoration-color: var(--accent-bd);
       }
+      p a,
+      li a,
+      td a {
+        text-decoration: underline;
+      }
       a:hover {
         color: color-mix(in srgb, var(--accent) 60%, var(--ink-900));
         text-decoration: underline;
@@ -790,11 +806,9 @@
         text-transform: uppercase;
         color: var(--accent);
         text-decoration: none;
-        opacity: 0.75;
-        transition: opacity 0.15s;
       }
       .back-to-top a:hover {
-        opacity: 1;
+        text-decoration: underline;
       }
 
       /* ── Reduced Motion (WCAG 2.3.3) ── */
@@ -818,7 +832,7 @@
           background: Canvas;
           border-right: 1px solid CanvasText;
         }
-        .sidebar-brand h2,
+        .sidebar-brand .brand-title,
         .nav-group-label,
         .nav-group a {
           color: LinkText !important;
@@ -1532,8 +1546,9 @@
         border-bottom: 1px solid var(--ink-100);
         font-size: 13.5px;
         display: flex;
+        flex-wrap: wrap;
         align-items: baseline;
-        gap: 12px;
+        gap: 4px 12px;
       }
       .ref-list li:last-child {
         border-bottom: none;
@@ -1798,28 +1813,24 @@
         margin-right: 2.5cm;
       }
 
-      /* ── Advanced Paged Media (requires Paged.js polyfill or WeasyPrint/Prince) ── */
+      /* ── Native paged media (Chrome 131+, Firefox, WeasyPrint, Prince) ── */
       @page chapter {
-        @top-center {
-          content: string(chapter-title);
-          font-size: 9pt;
-          color: #666;
-        }
         @bottom-center {
           content: counter(page) " / " counter(pages);
+          font-family: 'DM Sans', 'Segoe UI', Arial, sans-serif;
           font-size: 9pt;
           color: #666;
         }
         @bottom-right {
           content: "Debugging Field Manual";
+          font-family: 'DM Sans', 'Segoe UI', Arial, sans-serif;
           font-size: 8pt;
-          color: #999;
+          color: #6b6b6b;
         }
       }
       @media print {
         .chapter {
           page: chapter;
-          string-set: chapter-title content();
         }
         h1, h2, h3 {
           bookmark-level: none;
@@ -2186,7 +2197,7 @@
       <nav class="sidebar" role="navigation" aria-label="Guide sections" id="sidebar-nav">
         <div class="sidebar-brand">
           <span class="logo-mark">Made in Jurgistan</span>
-          <h2>Debugging &amp; Troubleshooting<br />Field Manual</h2>
+          <div class="brand-title">Debugging<br />Field Manual</div>
           <p class="edition">Complete Edition · 30 Sections</p>
         </div>
 
@@ -2280,7 +2291,8 @@
           </div>
         </header>
 
-        <div class="content-inner">
+        <div class="content-inner" id="about">
+          <h2 class="sr-only">About This Guide</h2>
           <div class="badge-legend">
             <div class="badge-legend-item">
               <span class="badge b-beginner">Beginner</span> Core technique — universally
@@ -2388,7 +2400,7 @@
             <span class="badge b-intermediate">Intermediate</span>
           </h3>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -2498,7 +2510,7 @@
             not.
           </p>
 
-          <pre lang="text" translate="no"><span class="code-lang" aria-hidden="true">TEMPLATE</span><code><span class="cm">// Problem Statement Template</span>
+          <pre tabindex="0" data-lang="text" translate="no"><span class="code-lang" aria-hidden="true">TEMPLATE</span><code><span class="cm">// Problem Statement Template</span>
 <span class="cm">// Fill this out BEFORE touching any code</span>
 
 <span class="ty">OBSERVED</span>:   What actually happens? (Exact error message, exact output, exact behavior)
@@ -2511,7 +2523,7 @@
             Bug Severity Classification <span class="badge b-intermediate">Intermediate</span>
           </h3>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -2680,7 +2692,7 @@
             You have an error. You have no idea where to start. Here is a complete, step-by-step
             protocol that works for every language and every error type.
           </p>
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">1</div>
               <div class="ps-label">Read the Error</div>
@@ -2750,7 +2762,7 @@
             debugging with hypotheses is navigation.
           </p>
 
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">Step 1</div>
               <div class="ps-label">Observe</div>
@@ -2819,7 +2831,7 @@
             hypothesis, then unconsciously gather only evidence that confirms it — ignoring or
             dismissing contradictory data. The antidote is an explicit evidence log.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -2869,7 +2881,7 @@
             Which Debugging Strategy for Which Situation
             <span class="badge b-beginner">Beginner</span>
           </h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -2951,7 +2963,7 @@
           </p>
 
           <h3>Anatomy of a Stack Trace <span class="badge b-beginner">Beginner</span></h3>
-          <pre lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python example — read bottom-up for cause, top-down for context</span>
+          <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python example — read bottom-up for cause, top-down for context</span>
 Traceback (most recent call last):
   File <span class="str">"app/api/users.py"</span>, line <span class="num">84</span>, in <span class="fn">get_user_profile</span>
     profile = <span class="fn">fetch_from_cache</span>(user_id)          <span class="cm"># ← call origin</span>
@@ -2986,7 +2998,7 @@ json.JSONDecodeError: <span class="str">Expecting value: line 1 column 1 (char 0
 
           <h3>Error Message Taxonomy <span class="badge b-intermediate">Intermediate</span></h3>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -3082,7 +3094,7 @@ json.JSONDecodeError: <span class="str">Expecting value: line 1 column 1 (char 0
             identifies the exact commit that introduced the regression in O(log n) commit checks.
           </p>
 
-          <pre lang="bash" translate="no"><span class="code-lang" aria-hidden="true">BASH</span><code><span class="cm"># Start bisecting</span>
+          <pre tabindex="0" data-lang="bash" translate="no"><span class="code-lang" aria-hidden="true">BASH</span><code><span class="cm"># Start bisecting</span>
 git bisect start
 git bisect bad                    <span class="cm"># current HEAD is broken</span>
 git bisect good v2.3.1            <span class="cm"># last known working tag</span>
@@ -3185,7 +3197,7 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
             <span class="badge b-beginner">Beginner</span>
           </h3>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -3245,7 +3257,7 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
             context, with what identifiers.
           </p>
 
-          <pre lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># ✗ Bad: unstructured, unsearchable</span>
+          <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># ✗ Bad: unstructured, unsearchable</span>
 <span class="fn">logger.info</span>(<span class="str">"User 12345 created order 67890 for $49.99"</span>)
 
 <span class="cm"># ✓ Good: structured, queryable, correlatable</span>
@@ -3308,7 +3320,7 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
 
           <h3>Core Debugger Actions <span class="badge b-beginner">Beginner</span></h3>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -3360,7 +3372,7 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
             a loop.
           </p>
 
-          <pre lang="javascript" translate="no"><span class="code-lang" aria-hidden="true">JS</span><code><span class="cm">// VS Code: right-click the breakpoint dot → Edit Breakpoint → Condition</span>
+          <pre tabindex="0" data-lang="javascript" translate="no"><span class="code-lang" aria-hidden="true">JS</span><code><span class="cm">// VS Code: right-click the breakpoint dot → Edit Breakpoint → Condition</span>
 <span class="cm">// Pause only when user_id equals a specific problematic value:</span>
 user_id === <span class="str">"usr_problematic_9f3k"</span>
 
@@ -3446,7 +3458,7 @@ user_id === <span class="str">"usr_problematic_9f3k"</span>
             Zipkin, Grafana Tempo, Honeycomb, Datadog, New Relic).
           </p>
 
-          <pre lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python — automatic instrumentation (zero-code traces)</span>
+          <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python — automatic instrumentation (zero-code traces)</span>
 pip install opentelemetry-distro opentelemetry-exporter-otlp
 opentelemetry-bootstrap --action=install
 <span class="cm"># Then run your app:</span>
@@ -3467,7 +3479,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
           <h3>
             Tracing Backends Comparison <span class="badge b-intermediate">Intermediate</span>
           </h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -3526,7 +3538,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             and network traffic at the kernel level. The result: distributed traces across an entire
             cluster with zero code changes, zero restarts, and zero <abbr title="Software Development Kit">SDK</abbr> dependencies.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table class="spec-table">
               <thead>
                 <tr>
@@ -3684,7 +3696,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
           </p>
 
           <h4>Profiling Tools by Language</h4>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -3747,7 +3759,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             profiler produces misleading data. CPU profiling won't show you memory leaks; memory
             profiling won't show you lock contention.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -3801,7 +3813,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             78% regression" is. Baselines transform performance work from intuition into
             engineering.
           </p>
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">1</div>
               <div class="ps-label">Measure Current State</div>
@@ -4046,7 +4058,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
           <h3>
             HTTP Status Code Diagnostic Table <span class="badge b-beginner">Beginner</span>
           </h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -4130,7 +4142,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             client to the server and back. Each tool in this escalation ladder adds more visibility
             at the cost of more complexity — start simple, escalate only when needed.
           </p>
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">1</div>
               <div class="ps-label">Browser DevTools</div>
@@ -4172,7 +4184,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
               </div>
             </div>
           </div>
-          <pre lang="bash" translate="no"><span class="code-lang" aria-hidden="true">BASH</span><code><span class="cm"># curl -v: verbose request showing headers and response</span>
+          <pre tabindex="0" data-lang="bash" translate="no"><span class="code-lang" aria-hidden="true">BASH</span><code><span class="cm"># curl -v: verbose request showing headers and response</span>
 curl -v \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
@@ -4193,7 +4205,7 @@ curl --resolve api.example.com:443:192.168.1.10 https://api.example.com/health</
             Network debugging has a particularly high false positive rate because the same symptom
             can have many different causes, and the most obvious explanation is often wrong.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -4281,7 +4293,7 @@ curl --resolve api.example.com:443:192.168.1.10 https://api.example.com/health</
             costs.
           </p>
 
-          <pre lang="sql" translate="no"><span class="code-lang" aria-hidden="true">SQL</span><code><span class="cm">-- PostgreSQL — find slow queries and their execution plans</span>
+          <pre tabindex="0" data-lang="sql" translate="no"><span class="code-lang" aria-hidden="true">SQL</span><code><span class="cm">-- PostgreSQL — find slow queries and their execution plans</span>
 <span class="kw">EXPLAIN</span> (ANALYZE, BUFFERS, FORMAT <span class="ty">JSON</span>)
 <span class="kw">SELECT</span> u.id, u.email, COUNT(o.id) <span class="kw">AS</span> order_count
 <span class="kw">FROM</span> users u
@@ -4299,7 +4311,7 @@ curl --resolve api.example.com:443:192.168.1.10 https://api.example.com/health</
             would suffice.
           </p>
 
-          <pre lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># ✗ N+1: 1 query for users + N queries for orders (one per user)</span>
+          <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># ✗ N+1: 1 query for users + N queries for orders (one per user)</span>
 users = User.<span class="fn">all</span>()
 <span class="kw">for</span> user <span class="kw">in</span> users:
     print(user.orders.<span class="fn">count</span>())   <span class="cm"># ← new DB query per user</span>
@@ -4335,7 +4347,7 @@ users = User.<span class="fn">all</span>().<span class="fn">prefetch_related</sp
             real bottlenecks — not the ones you assume. Always optimise the query with the highest
             <em>total time</em>, not the single slowest individual run.
           </p>
-          <pre lang="sql" translate="no"><span class="code-lang" aria-hidden="true">SQL</span><code><span class="cm">-- PostgreSQL: enable and query pg_stat_statements</span>
+          <pre tabindex="0" data-lang="sql" translate="no"><span class="code-lang" aria-hidden="true">SQL</span><code><span class="cm">-- PostgreSQL: enable and query pg_stat_statements</span>
 <span class="cm">-- Add to postgresql.conf: shared_preload_libraries = 'pg_stat_statements'</span>
 <span class="cm">-- Then: CREATE EXTENSION IF NOT EXISTS pg_stat_statements;</span>
 
@@ -4367,7 +4379,7 @@ LIMIT 20;
             to verify the planner switched from a sequential scan to an index scan — and that wall
             time actually improved.
           </p>
-          <pre lang="sql" translate="no"><span class="code-lang" aria-hidden="true">SQL</span><code><span class="cm">-- Step 1: Capture the baseline plan</span>
+          <pre tabindex="0" data-lang="sql" translate="no"><span class="code-lang" aria-hidden="true">SQL</span><code><span class="cm">-- Step 1: Capture the baseline plan</span>
 EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)
 SELECT u.name, COUNT(o.id) AS order_count
 FROM users u
@@ -4435,7 +4447,7 @@ ORDER BY idx_scan DESC;
             large objects, circular references in older runtimes.
           </p>
 
-          <pre lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python — tracemalloc: find where memory is being allocated</span>
+          <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python — tracemalloc: find where memory is being allocated</span>
 <span class="kw">import</span> tracemalloc
 tracemalloc.<span class="fn">start</span>()
 
@@ -4460,7 +4472,7 @@ top_stats = snapshot.<span class="fn">statistics</span>(<span class="str">'linen
             locations.
           </p>
 
-          <pre lang="bash" translate="no"><span class="code-lang" aria-hidden="true">SHELL</span><code><span class="cm"># C/C++ — compile with ASan, run normally</span>
+          <pre tabindex="0" data-lang="bash" translate="no"><span class="code-lang" aria-hidden="true">SHELL</span><code><span class="cm"># C/C++ — compile with ASan, run normally</span>
 gcc -fsanitize=address -g -O1 -fno-omit-frame-pointer myapp.c -o myapp
 ./myapp  <span class="cm"># ASan will print detailed error report if memory bug triggered</span>
 
@@ -4492,7 +4504,7 @@ gcc -fsanitize=thread -g myapp.c -o myapp</code></pre>
             execution, inspect memory, evaluate expressions, and trace back from any crash — all
             without recompilation.
           </p>
-          <pre lang="bash" translate="no"><span class="code-lang" aria-hidden="true">SHELL</span><code><span class="cm"># Compile with debug symbols (never strip in dev)</span>
+          <pre tabindex="0" data-lang="bash" translate="no"><span class="code-lang" aria-hidden="true">SHELL</span><code><span class="cm"># Compile with debug symbols (never strip in dev)</span>
 gcc -g -O0 myapp.c -o myapp
 gdb ./myapp
 
@@ -4550,7 +4562,7 @@ gdb -p 98765
 
           <h3>Types of Concurrency Bugs <span class="badge b-intermediate">Intermediate</span></h3>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -4597,7 +4609,7 @@ gdb -p 98765
           </div>
 
           <h3>ThreadSanitizer (TSan) <span class="badge b-expert">Expert</span></h3>
-          <pre lang="bash" translate="no"><span class="code-lang" aria-hidden="true">SHELL</span><code><span class="cm"># Compile with TSan (mutually exclusive with ASan)</span>
+          <pre tabindex="0" data-lang="bash" translate="no"><span class="code-lang" aria-hidden="true">SHELL</span><code><span class="cm"># Compile with TSan (mutually exclusive with ASan)</span>
 gcc -fsanitize=thread -g -O1 myapp.c -o myapp
 ./myapp  <span class="cm"># TSan reports: "DATA RACE: write in thread T1, read in thread T2"</span>
 
@@ -4631,7 +4643,7 @@ go test -race ./...</code></pre>
             <em>sequential awaits where parallel is possible</em>, and
             <em>blocking the event loop with CPU work</em>.
           </p>
-          <pre lang="javascript" translate="no"><span class="code-lang" aria-hidden="true">JS</span><code><span class="cm">// ✗ Bug 1: Forgotten await — returns a Promise, not the value</span>
+          <pre tabindex="0" data-lang="javascript" translate="no"><span class="code-lang" aria-hidden="true">JS</span><code><span class="cm">// ✗ Bug 1: Forgotten await — returns a Promise, not the value</span>
 <span class="kw">async function</span> <span class="fn">getUser</span>(id) {
   <span class="kw">const</span> user = <span class="fn">fetchUser</span>(id);  <span class="cm">// Promise object, not the user!</span>
   console.<span class="fn">log</span>(user.name);       <span class="cm">// undefined — user is a Promise</span>
@@ -4669,7 +4681,7 @@ app.<span class="fn">get</span>(<span class="str">'/process'</span>, <span class
             to wait forever. PostgreSQL detects and automatically rolls back one party — but
             understanding <em>which queries caused it</em> requires looking at the lock graph.
           </p>
-          <pre lang="sql" translate="no"><span class="code-lang" aria-hidden="true">SQL</span><code><span class="cm">-- PostgreSQL: find blocked queries and their blockers</span>
+          <pre tabindex="0" data-lang="sql" translate="no"><span class="code-lang" aria-hidden="true">SQL</span><code><span class="cm">-- PostgreSQL: find blocked queries and their blockers</span>
 SELECT
   blocked.pid           AS blocked_pid,
   blocked.query         AS blocked_query,
@@ -4729,7 +4741,7 @@ SELECT pg_cancel_backend(&lt;blocker_pid&gt;);
           <h3>
             The DevTools Panels You're Underusing <span class="badge b-beginner">Beginner</span>
           </h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -4809,7 +4821,7 @@ SELECT pg_cancel_backend(&lt;blocker_pid&gt;);
             The browser console is far richer than <code>console.log</code>. These methods reduce
             the manual work of tracing call chains and visualizing structured data.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -4854,7 +4866,7 @@ SELECT pg_cancel_backend(&lt;blocker_pid&gt;);
               </tbody>
             </table>
           </div>
-          <pre lang="javascript" translate="no"><span class="code-lang" aria-hidden="true">JS</span><code><span class="cm">// console.trace: discover WHO is calling a function</span>
+          <pre tabindex="0" data-lang="javascript" translate="no"><span class="code-lang" aria-hidden="true">JS</span><code><span class="cm">// console.trace: discover WHO is calling a function</span>
 <span class="kw">function</span> processPayment(amount) {
   console.trace(<span class="str">"processPayment called with"</span>, amount);
   <span class="cm">// ... rest of logic</span>
@@ -4899,7 +4911,7 @@ console.table(store.getState().cartItems);
             different handling strategies:
           </p>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -4960,7 +4972,7 @@ console.table(store.getState().cartItems);
             </li>
           </ol>
 
-          <pre lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python — error context wrapping pattern</span>
+          <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python — error context wrapping pattern</span>
 <span class="kw">def</span> <span class="fn">get_user_orders</span>(user_id: <span class="ty">str</span>) -> <span class="ty">list</span>[Order]:
     <span class="kw">try</span>:
         <span class="kw">return</span> db.<span class="fn">query</span>(<span class="str">"SELECT * FROM orders WHERE user_id = %s"</span>, [user_id])
@@ -4976,7 +4988,7 @@ console.table(store.getState().cartItems);
             These patterns destroy debuggability. They are written by engineers who think they are
             handling errors but are actually just hiding them.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -5045,7 +5057,7 @@ console.table(store.getState().cartItems);
             Not every error in your logs is a bug. Developing the judgment to distinguish real
             failures from expected noise is critical for effective debugging and alert tuning.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -5139,7 +5151,7 @@ console.table(store.getState().cartItems);
           <h3>
             Static Analysis Toolchain by Language <span class="badge b-beginner">Beginner</span>
           </h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -5216,7 +5228,7 @@ console.table(store.getState().cartItems);
             production-class type bugs: implicit <code>Any</code> leakage, untyped function
             signatures, and missing return annotations.
           </p>
-          <pre lang="toml" translate="no"><span class="code-lang" aria-hidden="true">TOML</span><code><span class="cm"># pyproject.toml — recommended strict configuration for new projects</span>
+          <pre tabindex="0" data-lang="toml" translate="no"><span class="code-lang" aria-hidden="true">TOML</span><code><span class="cm"># pyproject.toml — recommended strict configuration for new projects</span>
 [tool.mypy]
 python_version = <span class="str">"3.12"</span>
 strict = <span class="kw">true</span>               <span class="cm"># enables all strict flags at once</span>
@@ -5240,7 +5252,7 @@ plugins = [<span class="str">"pydantic.mypy"</span>]     <span class="cm"># if u
             Ruff replaces Black, Flake8, isort, Pylint, and pyupgrade in a single tool — running
             10–100× faster than any of them individually.
           </p>
-          <pre lang="toml" translate="no"><span class="code-lang" aria-hidden="true">TOML</span><code><span class="cm"># pyproject.toml — ruff configuration</span>
+          <pre tabindex="0" data-lang="toml" translate="no"><span class="code-lang" aria-hidden="true">TOML</span><code><span class="cm"># pyproject.toml — ruff configuration</span>
 [tool.ruff]
 line-length = <span class="num">88</span>
 target-version = <span class="str">"py312"</span>
@@ -5274,7 +5286,7 @@ indent-style = <span class="str">"space"</span>
             Pre-commit hooks run your static analysis before every commit. Bugs caught here never
             reach CI — and they never slow down a colleague's review.
           </p>
-          <pre lang="yaml" translate="no"><span class="code-lang" aria-hidden="true">YAML</span><code><span class="cm"># .pre-commit-config.yaml</span>
+          <pre tabindex="0" data-lang="yaml" translate="no"><span class="code-lang" aria-hidden="true">YAML</span><code><span class="cm"># .pre-commit-config.yaml</span>
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.9.0
@@ -5311,7 +5323,7 @@ repos:
             Gate your pull requests on static analysis. This is the highest-ROI step in any CI
             pipeline — it prevents entire classes of runtime bug before any code is deployed.
           </p>
-          <pre lang="yaml" translate="no"><span class="code-lang" aria-hidden="true">YAML</span><code><span class="cm"># .github/workflows/quality.yml</span>
+          <pre tabindex="0" data-lang="yaml" translate="no"><span class="code-lang" aria-hidden="true">YAML</span><code><span class="cm"># .github/workflows/quality.yml</span>
 name: Code Quality
 
 on: [push, pull_request]
@@ -5514,7 +5526,7 @@ jobs:
             tracks resolution status, and integrates with GitHub and Jira.
           </p>
 
-          <pre lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python — Sentry setup (also: Node.js, Go, Java, Ruby, PHP, Rust...)</span>
+          <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python — Sentry setup (also: Node.js, Go, Java, Ruby, PHP, Rust...)</span>
 pip install sentry-sdk
 
 <span class="kw">import</span> sentry_sdk
@@ -5563,7 +5575,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             investigating. The result is that real incidents go unnoticed. Alert fatigue is always a
             system problem, never a people problem.
           </p>
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">1</div>
               <div class="ps-label">Audit</div>
@@ -5612,7 +5624,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             rate alerts trigger when you're consuming that budget faster than sustainable — giving
             you early warning before users are impacted.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -5650,7 +5662,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
               </tbody>
             </table>
           </div>
-          <pre lang="text" translate="no"><span class="code-lang" aria-hidden="true">PROMQL</span><code><span class="cm"># Prometheus — 14x burn rate alert for 99.9% SLO</span>
+          <pre tabindex="0" data-lang="text" translate="no"><span class="code-lang" aria-hidden="true">PROMQL</span><code><span class="cm"># Prometheus — 14x burn rate alert for 99.9% SLO</span>
 <span class="cm"># Fires when 1-hour error rate would exhaust 30-day budget in 2 hours</span>
 <span class="kw">alert</span>: SLOBurnRateCritical
 <span class="kw">expr</span>: |
@@ -5860,7 +5872,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
           <h3>
             The Effective AI Debugging Prompt <span class="badge b-intermediate">Intermediate</span>
           </h3>
-          <pre lang="text" translate="no"><span class="code-lang" aria-hidden="true">TEMPLATE</span><code><span class="cm">// Template for maximum AI debugging effectiveness</span>
+          <pre tabindex="0" data-lang="text" translate="no"><span class="code-lang" aria-hidden="true">TEMPLATE</span><code><span class="cm">// Template for maximum AI debugging effectiveness</span>
 
 <span class="cm">// 1. Provide full context — don't summarize the error</span>
 <span class="str">"Here is the complete error output:"</span>
@@ -5888,7 +5900,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             full repo context.
           </p>
 
-          <pre lang="bash" translate="no"><span class="code-lang" aria-hidden="true">BASH</span><code><span class="cm"># Invoke Claude Code in your project directory</span>
+          <pre tabindex="0" data-lang="bash" translate="no"><span class="code-lang" aria-hidden="true">BASH</span><code><span class="cm"># Invoke Claude Code in your project directory</span>
 cd /path/to/project
 claude
 
@@ -6104,7 +6116,7 @@ claude
           </p>
 
           <h3>MCP-Powered Debugging Workflow <span class="badge b-expert">Expert</span></h3>
-          <pre lang="text" translate="no"><span class="code-lang" aria-hidden="true">EXAMPLE</span><code><span class="cm">// Example: Full production debug session with MCP tools</span>
+          <pre tabindex="0" data-lang="text" translate="no"><span class="code-lang" aria-hidden="true">EXAMPLE</span><code><span class="cm">// Example: Full production debug session with MCP tools</span>
 
 <span class="cm">// 1. User reports: "Checkout is failing for some users"</span>
 <span class="cm">// AI with Sentry MCP:</span>
@@ -6128,7 +6140,7 @@ claude
             Get your first MCP server running in your AI assistant in under 10 minutes. The
             following workflow uses VS Code with GitHub Copilot or Claude Desktop.
           </p>
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">1</div>
               <div class="ps-label">Choose a Server</div>
@@ -6170,7 +6182,7 @@ claude
               </div>
             </div>
           </div>
-          <pre lang="json" translate="no"><span class="code-lang" aria-hidden="true">JSON</span><code><span class="cm">// .vscode/mcp.json — GitHub MCP config (VS Code Copilot)</span>
+          <pre tabindex="0" data-lang="json" translate="no"><span class="code-lang" aria-hidden="true">JSON</span><code><span class="cm">// .vscode/mcp.json — GitHub MCP config (VS Code Copilot)</span>
 {
   <span class="str">"servers"</span>: {
     <span class="str">"github"</span>: {
@@ -6187,7 +6199,7 @@ claude
           <h3>
             Which MCP for Which Problem <span class="badge b-intermediate">Intermediate</span>
           </h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -6265,7 +6277,7 @@ claude
 
           <h3>The Agent Failure Taxonomy <span class="badge b-expert">Expert</span></h3>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -6374,7 +6386,7 @@ claude
           <h3>
             Instrumenting an Agent with OpenTelemetry <span class="badge b-expert">Expert</span>
           </h3>
-          <pre lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Langfuse v4 — trace any LLM app with one decorator</span>
+          <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Langfuse v4 — trace any LLM app with one decorator</span>
 <span class="kw">from</span> langfuse <span class="kw">import</span> get_client
 <span class="kw">from</span> langfuse.decorators <span class="kw">import</span> observe
 
@@ -6398,7 +6410,7 @@ langfuse = <span class="fn">get_client</span>()
             When an AI agent produces wrong output, the debugging process is systematic but differs
             from traditional code debugging. Follow this structured investigation.
           </p>
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">1</div>
               <div class="ps-label">Reproduce</div>
@@ -6462,7 +6474,7 @@ langfuse = <span class="fn">get_client</span>()
             CI/CD pipeline for AI agents — it prevents regressions as prompts, models, and tools
             change.
           </p>
-          <pre lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Braintrust — create an eval from a resolved bug</span>
+          <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Braintrust — create an eval from a resolved bug</span>
 <span class="kw">import</span> braintrust
 
 <span class="cm"># The resolved bug becomes a permanent regression test</span>
@@ -6509,7 +6521,7 @@ braintrust.<span class="fn">Eval</span>(
 
           <h3>The Autonomous Debug Loop <span class="badge b-expert">Expert</span></h3>
 
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">1</div>
               <div class="ps-label">Alert</div>
@@ -6539,7 +6551,7 @@ braintrust.<span class="fn">Eval</span>(
 
           <h3>Tools Enabling Agentic Debugging <span class="badge b-expert">Expert</span></h3>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -6605,7 +6617,7 @@ braintrust.<span class="fn">Eval</span>(
             Agentic debugging tools are powerful but not universally appropriate. Apply them where
             they amplify human judgment — not where they replace the understanding you need to own.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -6765,7 +6777,7 @@ braintrust.<span class="fn">Eval</span>(
             to investigate immediately — mitigate first, understand second. Every minute spent
             debugging instead of mitigating extends user impact.
           </p>
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">0–2m</div>
               <div class="ps-label">Assess Blast Radius</div>
@@ -6828,7 +6840,7 @@ braintrust.<span class="fn">Eval</span>(
             The safest production debugging principle: gather all evidence from read-only systems.
             Never write to production, even for diagnostic purposes.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -6896,7 +6908,7 @@ braintrust.<span class="fn">Eval</span>(
 
           <h3>CI Failure Taxonomy <span class="badge b-intermediate">Intermediate</span></h3>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -6949,7 +6961,7 @@ braintrust.<span class="fn">Eval</span>(
           <h3>
             Reproduce CI Failures Locally <span class="badge b-intermediate">Intermediate</span>
           </h3>
-          <pre lang="bash" translate="no"><span class="code-lang" aria-hidden="true">BASH</span><code><span class="cm"># Reproduce GitHub Actions environment locally with act</span>
+          <pre tabindex="0" data-lang="bash" translate="no"><span class="code-lang" aria-hidden="true">BASH</span><code><span class="cm"># Reproduce GitHub Actions environment locally with act</span>
 brew install act
 act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
 
@@ -6971,7 +6983,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             engineer time and erodes trust in the test suite. Triage them systematically rather than
             ignoring them.
           </p>
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">1</div>
               <div class="ps-label">Classify</div>
@@ -7016,7 +7028,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
               </div>
             </div>
           </div>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7146,7 +7158,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
 
           <h4>Postmortem Template</h4>
 
-          <pre lang="text" translate="no"><span class="code-lang" aria-hidden="true">MARKDOWN</span><code><span class="cm">## Postmortem: [Incident Title] — [Date]
+          <pre tabindex="0" data-lang="text" translate="no"><span class="code-lang" aria-hidden="true">MARKDOWN</span><code><span class="cm">## Postmortem: [Incident Title] — [Date]
 
 </span><span class="ty">Impact</span>: [Duration] · [Users affected] · [Business metric impact]
 
@@ -7179,7 +7191,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             between detection and action), and cascading effects. Reconstructing it accurately
             requires working from multiple sources.
           </p>
-          <div class="pipeline-box">
+          <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
               <div class="ps-num">1</div>
               <div class="ps-label">Anchor with Objective Data</div>
@@ -7242,7 +7254,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             no one completes. An action item that doesn't prevent the next incident is worse than no
             action item: it creates false confidence.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7315,7 +7327,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
           </p>
 
           <h3>Universal Debugging <span class="badge b-beginner">Beginner</span></h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7369,7 +7381,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
           <h3>
             Observability &amp; Monitoring <span class="badge b-intermediate">Intermediate</span>
           </h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7418,7 +7430,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
           </div>
 
           <h3>Network &amp; Protocol <span class="badge b-intermediate">Intermediate</span></h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7463,7 +7475,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
           </div>
 
           <h3>Memory &amp; Native Debugging <span class="badge b-expert">Expert</span></h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7507,7 +7519,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
           </div>
 
           <h3>AI Agent Debugging <span class="badge b-expert">Expert</span></h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7547,7 +7559,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
           </div>
 
           <h3>eBPF &amp; Continuous Profiling <span class="badge b-expert">Expert</span></h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7606,7 +7618,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
           </div>
 
           <h3>MCP Servers for Debugging <span class="badge b-intermediate">Intermediate</span></h3>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7677,7 +7689,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             <span class="badge b-beginner">Beginner</span>
           </h3>
 
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7791,7 +7803,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             Rubber-duck debugging alone often reveals the answer before you need to interrupt
             anyone.
           </div>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7836,7 +7848,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             correct behavior, expected errors, or environment noise. Mistaking them for bugs wastes
             hours and builds incorrect mental models of the system.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -7890,7 +7902,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             that systematically distort their debugging judgment. Recognizing them is the first step
             to counteracting them.
           </p>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
@@ -8289,10 +8301,10 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
           </div>
 
           <h3>APA (7th Edition)</h3>
-          <pre><code>Made in Jurgistan. (2026). Debugging Field Manual (Version 2026.2.0) [Computer software]. https://Made-in-Jurgistan.github.io/debugging-field-manual/</code></pre>
+          <pre tabindex="0"><code>Made in Jurgistan. (2026). Debugging Field Manual (Version 2026.2.0) [Computer software]. https://Made-in-Jurgistan.github.io/debugging-field-manual/</code></pre>
 
           <h3>BibTeX</h3>
-          <pre><code>@software{Made_in_Jurgistan_Debugging_Field_2026,
+          <pre tabindex="0"><code>@software{Made_in_Jurgistan_Debugging_Field_2026,
   author = {Made in Jurgistan},
   month = {7},
   title = {{Debugging Field Manual}},
@@ -8334,7 +8346,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             <span style="display: block; margin-top: 8px; font-size: 11px; color: var(--ink-400);">
               Accessibility: Conforms to WCAG 2.2 AA. Includes keyboard navigation, skip links,
               focus-visible outlines, reduced-motion support, forced-colors support, and semantic HTML.
-              Report issues to: github.com/Made-in-Jurgistan/debugging-field-manual-2026/issues
+              Report issues to: github.com/Made-in-Jurgistan/debugging-field-manual/issues
             </span>
             <a href="#cover" class="return-to-top-link">↑ Return to top</a>
           </div>
@@ -8347,7 +8359,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
     <script>
       (function () {
         'use strict';
-        var sections = document.querySelectorAll('main section[id]');
+        var sections = document.querySelectorAll('main .chapter[id], main #about');
         var navLinks = document.querySelectorAll('.nav-group a[href^="#"]');
         if (!sections.length || !navLinks.length) return;
         var linkMap = {};
@@ -8379,7 +8391,5 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
       })();
     </script>
 
-<!-- Paged.js polyfill for CSS Paged Media L3 (string-set, bookmark-level, named pages, margin boxes) -->
-<script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
   </body>
 </html>

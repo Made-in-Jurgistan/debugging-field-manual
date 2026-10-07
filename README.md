@@ -4,7 +4,7 @@
 
 ### Language-Agnostic Strategies · Instrumentation · AI-Augmented Workflows
 
-**30 Sections · Python · Kotlin · C/C++ · Java · TypeScript · Distributed Systems**
+**29 Sections · Python · Kotlin · C/C++ · Java · TypeScript · Distributed Systems**
 
 [![Version](https://img.shields.io/badge/version-2026.2.0-a82828?style=flat-square)](https://Made-in-Jurgistan.github.io/debugging-field-manual/)
 [![License](https://img.shields.io/badge/license-CC%20BY--SA%204.0-a82828?style=flat-square)](https://creativecommons.org/licenses/by-sa/4.0/)
@@ -15,7 +15,7 @@
 
 ---
 
-> **From mindset to postmortem** — 30 sections covering every debugging technique for finding
+> **From mindset to postmortem** — 29 sections covering every debugging technique for finding
 > and fixing any bug in any system. Includes AI-assisted debugging, MCP tool integration,
 > distributed tracing, eBPF observability, and blameless root cause analysis.
 
@@ -25,7 +25,7 @@
 
 | # | Section | Group | Focus |
 |---|---------|-------|-------|
-| 00 | About This Guide | Orientation | Audience, structure, how to use |
+| — | About This Guide | Orientation | Audience, structure, how to use |
 | 01 | The Debugging Mindset | Orientation | Psychological approach, curiosity, patience |
 | 02 | Problem Framing & Triage | Orientation | Reproduction, isolation, severity assessment |
 | 03 | Articulation & Rubber Ducking | Core Methods | Forced precision, verbalization techniques |
@@ -76,6 +76,8 @@
 ## <img src="https://api.iconify.design/lucide:sparkles.svg?color=%23a82828" width="20" height="20" alt="" /> Guide Features
 
 - **<img src="https://api.iconify.design/lucide:ruler.svg?color=%23a82828" width="16" height="16" alt="" /> Print-Ready** — A4 duplex margins, page-break controls, print-safe color resets
+- **<img src="https://api.iconify.design/lucide:file-down.svg?color=%23a82828" width="16" height="16" alt="" /> PDF Edition** — Bookmarked, tagged A4 PDF (112 pages) built from the same HTML, in [`pdf/`](pdf/)
+- **<img src="https://api.iconify.design/lucide:copy.svg?color=%23a82828" width="16" height="16" alt="" /> One-Click Copy** — Copy button on every code block
 - **<img src="https://api.iconify.design/lucide:accessibility.svg?color=%23a82828" width="16" height="16" alt="" /> WCAG 2.2 AA** — Keyboard navigation, skip links, `:focus-visible` outlines, reduced-motion support, forced-colors support
 - **<img src="https://api.iconify.design/lucide:search.svg?color=%23a82828" width="16" height="16" alt="" /> SEO Optimized** — Open Graph, JSON-LD `TechArticle` structured data, canonical URL
 - **<img src="https://api.iconify.design/lucide:palette.svg?color=%23a82828" width="16" height="16" alt="" /> Editorial Design** — Lora (display) · DM Sans (body) · JetBrains Mono (code); warm paper palette with crimson accent (`#a82828`)
@@ -101,6 +103,10 @@ open index.html   # Linux: xdg-open, Windows: start
 python -m http.server 8000
 # navigate to http://localhost:8000
 ```
+
+### Download the PDF
+
+A ready-made print edition is in [`pdf/`](pdf/): [`Debugging_Field_Manual.pdf`](pdf/Debugging_Field_Manual.pdf) (112 pages, A4 portrait, bookmarked and tagged).
 
 ### Print to PDF
 
@@ -132,9 +138,9 @@ Open the HTML file in Chrome/Edge → `Ctrl+P` → set paper size to A4 → enab
 
 | Guide | Focus |
 |-------|-------|
-| **[Mobile STT Engineering Guide](https://Made-in-Jurgistan.github.io/mobile-stt-engineering-guide/)** | On-device speech-to-text: audio capture, VAD, model inference, post-processing |
+| **[Mobile Speech-to-Text Engineering Guide](https://Made-in-Jurgistan.github.io/mobile-stt-engineering-guide/)** | On-device speech-to-text: audio capture, VAD, model inference, post-processing |
 | **[Android Keyboard Design Guide](https://Made-in-Jurgistan.github.io/android-keyboard-design-guide/)** | Production IME development, API 30–36, Material You 3.0 |
-| **[Android Keyboard: 3D & Personalization](https://Made-in-Jurgistan.github.io/android-keyboard-design-guide-3d-personalization/)** | 3D rendering, PBR materials, custom themes, game engine bridges |
+| **[Android Keyboard Design Guide: 3D & Personalization](https://Made-in-Jurgistan.github.io/android-keyboard-design-guide-3d-personalization/)** | 3D rendering, PBR materials, custom themes, game engine bridges |
 | **[The SuperClaude Field Guide](https://Made-in-Jurgistan.github.io/superclaude-field-guide/)** | SuperClaude v4.3.0 for Claude Code: 30 commands, 19 specialists, MCP tools, 59 recipes |
 
 ---

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="The complete 2026 debugging field manual — 30 sections covering every technique for finding and fixing any bug in any system, from mindset to postmortem."
+      content="The complete 2026 debugging field manual — 29 sections covering every technique for finding and fixing any bug in any system, from mindset to postmortem."
     />
     <meta
       name="keywords"
@@ -23,7 +23,7 @@
     <meta property="og:title" content="Debugging Field Manual" />
     <meta
       property="og:description"
-      content="30 sections covering every debugging technique — from mindset and hypothesis loops to AI agents, MCP tools, and blameless postmortems."
+      content="29 sections covering every debugging technique — from mindset and hypothesis loops to AI agents, MCP tools, and blameless postmortems."
     />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://Made-in-Jurgistan.github.io/debugging-field-manual/" />
@@ -2138,13 +2138,34 @@
         }
       }
 
+    
+      /* ── Level badge sits beside the heading, not inside it (clean outline, bookmarks and screen-reader names) ── */
+      .heading-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+      .heading-row > h2, .heading-row > h3, .heading-row > h4 { margin: 0; }
+      @media print { .heading-row { break-after: avoid; break-inside: avoid; } }
+      .heading-row-3 { margin: 36px 0 12px; }
+    
+      .series-links { flex: 0 0 100%; grid-column: 1 / -1; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--ink-100); font-size: 12.5px; color: var(--ink-500); }
+      .series-links ul { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 18px; }
+      @media print { .series-links { display: none; } }
+    
+      /* ── Copy button on code blocks ── */
+      pre { position: relative; }
+      .copy-btn { position: absolute; bottom: 6px; right: 6px; display: inline-flex; align-items: center; gap: 5px; font: 500 11px/1 var(--f-body);
+        color: var(--ink-600); background: var(--paper); border: 1px solid var(--ink-200); border-radius: 5px; padding: 5px 9px; min-height: 24px; cursor: pointer;
+        opacity: 0; transition: opacity 0.15s; user-select: none; -webkit-user-select: none; }
+      pre:hover .copy-btn, pre:focus-within .copy-btn, .copy-btn:focus-visible { opacity: 1; }
+      .copy-btn:hover { color: var(--accent-ink, var(--accent)); border-color: var(--accent-bd); }
+      @media (hover: none) { .copy-btn { opacity: 1; } }
+      @media print { .copy-btn { display: none !important; } }
     </style>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "Debugging Field Manual",
-        "description": "30 sections covering every debugging technique — from mindset and hypothesis loops to AI agents, MCP tools, and blameless postmortems.",
+        "url": "https://Made-in-Jurgistan.github.io/debugging-field-manual/",
+        "description": "29 sections covering every debugging technique — from mindset and hypothesis loops to AI agents, MCP tools, and blameless postmortems.",
         "author": {
           "@type": "Organization",
           "name": "Made in Jurgistan",
@@ -2171,7 +2192,7 @@
         "accessibilitySummary": "Conforms to WCAG 2.2 AA. Includes keyboard navigation, skip links, focus management, reduced-motion support, and semantic HTML.",
         "isPartOf": {
           "@type": "CreativeWorkSeries",
-          "name": "Debugging Field Manual"
+          "name": "Made in Jurgistan Guides"
         }
       }
     </script>
@@ -2194,12 +2215,12 @@
         <div class="sidebar-brand">
           <span class="logo-mark">Made in Jurgistan</span>
           <div class="brand-title">Debugging<br />Field Manual</div>
-          <p class="edition">Complete Edition · 30 Sections</p>
+          <p class="edition">Complete Edition · 29 Sections</p>
         </div>
 
         <div class="nav-group">
           <span class="nav-group-label">Orientation</span>
-          <a href="#about"><span class="n">00</span>About This Guide</a>
+          <a href="#about"><span class="n"></span>About This Guide</a>
           <a href="#mindset"><span class="n">01</span>The Debugging Mindset</a>
           <a href="#framing"><span class="n">02</span>Problem Framing &amp; Triage</a>
         </div>
@@ -2280,7 +2301,7 @@
           <div class="cover-pills">
             <span class="pill pill-dark">2026 Edition</span>
             <span class="pill pill-accent">Language-Agnostic</span>
-            <span class="pill pill-muted">30 Sections</span>
+            <span class="pill pill-muted">29 Sections</span>
             <span class="pill pill-green">All Levels</span>
             <span class="pill pill-expert">AI-Augmented</span>
             <span class="pill pill-cobalt">Made in Jurgistan</span>
@@ -2302,7 +2323,7 @@
             </div>
           </div>
 
-          <h3>Who This Guide Is For <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Who This Guide Is For</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             Debugging is the single skill that separates engineers who ship reliably from those who
             don't. This guide covers the full spectrum: the cognitive frameworks for thinking about
@@ -2371,7 +2392,7 @@
             reasoning before they open a terminal.
           </p>
 
-          <h3>The Fundamental Principle <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>The Fundamental Principle</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             A bug is a discrepancy between what you believe the system does and what it actually
             does. Every debugging session is therefore an investigation into your assumptions. The
@@ -2391,18 +2412,15 @@
             </div>
           </div>
 
-          <h3>
-            Cognitive Biases That Kill Debugging Sessions
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Cognitive Biases That Kill Debugging Sessions</h3><span class="badge b-intermediate">Intermediate</span></div>
 
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Bias</th>
-                  <th>What It Looks Like</th>
-                  <th>Counter-Move</th>
+                  <th scope="col">Bias</th>
+                  <th scope="col">What It Looks Like</th>
+                  <th scope="col">Counter-Move</th>
                 </tr>
               </thead>
               <tbody>
@@ -2452,9 +2470,7 @@
             </table>
           </div>
 
-          <h3>
-            The Beginner vs. Expert Debugger <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Beginner vs. Expert Debugger</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Beginners fix the symptom. Experts find the cause. Beginners add a guard clause; experts
             ask why the guard clause was needed at all. Beginners think in terms of specific lines
@@ -2499,7 +2515,7 @@
             problem statements collapse the search space dramatically.
           </p>
 
-          <h3>The Problem Statement Template <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>The Problem Statement Template</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             Every debugging session should begin by answering these five questions in writing. "In
             writing" is non-negotiable — the act of typing forces precision that thinking alone does
@@ -2515,18 +2531,16 @@
 <span class="ty">ENVIRONMENT</span>: Where does it happen? (OS, version, runtime, dependencies, config)
 <span class="ty">TRIED</span>:      What have you already attempted? (Don't repeat failed paths)</code></pre>
 
-          <h3>
-            Bug Severity Classification <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Bug Severity Classification</h3><span class="badge b-intermediate">Intermediate</span></div>
 
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Severity</th>
-                  <th>Definition</th>
-                  <th>Response Time</th>
-                  <th>Who Handles</th>
+                  <th scope="col">Severity</th>
+                  <th scope="col">Definition</th>
+                  <th scope="col">Response Time</th>
+                  <th scope="col">Who Handles</th>
                 </tr>
               </thead>
               <tbody>
@@ -2558,9 +2572,7 @@
             </table>
           </div>
 
-          <h3>
-            Reproduction: The Most Important Step <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Reproduction: The Most Important Step</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             A bug you cannot reproduce consistently is a bug you cannot reliably fix. Reproduction
             precedes diagnosis. Before forming any hypothesis, achieve a
@@ -2619,7 +2631,7 @@
             metacognition in ways that silent reading does not.
           </p>
 
-          <h3>Why It Works: The Science <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Why It Works: The Science</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             When you read your own code silently, your brain fills in gaps with what you
             <em>intended</em> the code to do. When you explain it out loud to something that cannot
@@ -2630,7 +2642,7 @@
             disciplines.
           </p>
 
-          <h3>The Full Articulation Protocol <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>The Full Articulation Protocol</h3><span class="badge b-beginner">Beginner</span></div>
           <ol>
             <li>
               <strong>State the goal.</strong> "This function is supposed to take an array of user
@@ -2668,10 +2680,7 @@
             </div>
           </div>
 
-          <h3>
-            Writing as Articulation: The Feynman Technique for Bugs
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Writing as Articulation: The Feynman Technique for Bugs</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Richard Feynman's learning technique translates directly to debugging: write your
             explanation of the bug as if explaining it to someone who knows nothing about your
@@ -2680,10 +2689,7 @@
             also why writing a good bug report often leads to finding the bug before submitting it.
           </p>
 
-          <h3>
-            The Complete Beginner's First Debug Session
-            <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Complete Beginner's First Debug Session</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             You have an error. You have no idea where to start. Here is a complete, step-by-step
             protocol that works for every language and every error type.
@@ -2786,7 +2792,7 @@
             </div>
           </div>
 
-          <h3>Writing Good Hypotheses <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Writing Good Hypotheses</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             A good debugging hypothesis is specific and falsifiable. "The bug is somewhere in the
             authentication code" is not a hypothesis — it's a region. "The JWT validation is failing
@@ -2807,9 +2813,7 @@
             </div>
           </div>
 
-          <h3>
-            When to Abandon a Hypothesis <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>When to Abandon a Hypothesis</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Set explicit failure criteria before you test. "If I don't see evidence of X within 20
             minutes, I will discard this hypothesis and form a new one." Without a time limit,
@@ -2818,10 +2822,7 @@
             hypothesis and more by how quickly they abandon the wrong one.
           </p>
 
-          <h3>
-            Debugging Objectively: The Evidence Log
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Debugging Objectively: The Evidence Log</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Confirmation bias is the single biggest productivity killer in debugging. You form a
             hypothesis, then unconsciously gather only evidence that confirms it — ignoring or
@@ -2831,10 +2832,10 @@
             <table>
               <thead>
                 <tr>
-                  <th>Evidence Item</th>
-                  <th>Supports Hypothesis?</th>
-                  <th>Contradicts Hypothesis?</th>
-                  <th>Neutral / Unknown</th>
+                  <th scope="col">Evidence Item</th>
+                  <th scope="col">Supports Hypothesis?</th>
+                  <th scope="col">Contradicts Hypothesis?</th>
+                  <th scope="col">Neutral / Unknown</th>
                 </tr>
               </thead>
               <tbody>
@@ -2873,17 +2874,14 @@
             </div>
           </div>
 
-          <h3>
-            Which Debugging Strategy for Which Situation
-            <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Which Debugging Strategy for Which Situation</h3><span class="badge b-beginner">Beginner</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Situation</th>
-                  <th>Start Here</th>
-                  <th>Tools</th>
+                  <th scope="col">Situation</th>
+                  <th scope="col">Start Here</th>
+                  <th scope="col">Tools</th>
                 </tr>
               </thead>
               <tbody>
@@ -2958,7 +2956,7 @@
             the failure point.
           </p>
 
-          <h3>Anatomy of a Stack Trace <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Anatomy of a Stack Trace</h3><span class="badge b-beginner">Beginner</span></div>
           <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Python example — read bottom-up for cause, top-down for context</span>
 Traceback (most recent call last):
   File <span class="str">"app/api/users.py"</span>, line <span class="num">84</span>, in <span class="fn">get_user_profile</span>
@@ -2992,15 +2990,15 @@ json.JSONDecodeError: <span class="str">Expecting value: line 1 column 1 (char 0
             </li>
           </ol>
 
-          <h3>Error Message Taxonomy <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Error Message Taxonomy</h3><span class="badge b-intermediate">Intermediate</span></div>
 
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Error Category</th>
-                  <th>What It Means</th>
-                  <th>First Investigation</th>
+                  <th scope="col">Error Category</th>
+                  <th scope="col">What It Means</th>
+                  <th scope="col">First Investigation</th>
                 </tr>
               </thead>
               <tbody>
@@ -3080,10 +3078,7 @@ json.JSONDecodeError: <span class="str">Expecting value: line 1 column 1 (char 0
             approach.
           </p>
 
-          <h3>
-            git bisect: Finding the Breaking Commit
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>git bisect: Finding the Breaking Commit</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             When you know "this worked in version X and doesn't work in version Y,"
             <code>git bisect</code> automates the binary search over your commit history. It
@@ -3104,10 +3099,7 @@ git bisect reset                  <span class="cm"># return to HEAD</span>
 <span class="cm"># Automate with a test script (returns 0=pass, 1=fail)</span>
 git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
 
-          <h3>
-            Divide and Comment: Binary Search in Code
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Divide and Comment: Binary Search in Code</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             When a 500-line function produces wrong output and you don't know where, comment out the
             bottom half. Still broken? The bug is in the top half. Now comment out the bottom half
@@ -3115,7 +3107,7 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
             speculatively.
           </p>
 
-          <h3>Environment Binary Search <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Environment Binary Search</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>Bug only happens in production? Binary search the environmental differences:</p>
           <ul>
             <li>
@@ -3131,10 +3123,7 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
           <div class="back-to-top"><a href="#about">&#8593; Back to top</a></div>
           <hr class="section-break" />
 
-          <h3>
-            Binary Searching Config and Environment Variables
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Binary Searching Config and Environment Variables</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             When a bug only reproduces in staging (not local) or only on one machine (not others),
             the cause is almost always a config or environment difference. Apply binary search to
@@ -3188,19 +3177,16 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
             it is a design discipline practiced when writing code, not after a bug report arrives.
           </p>
 
-          <h3>
-            Log Levels: What They Mean and When to Use Them
-            <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Log Levels: What They Mean and When to Use Them</h3><span class="badge b-beginner">Beginner</span></div>
 
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Level</th>
-                  <th>When to Use</th>
-                  <th>Who Reads It</th>
-                  <th>In Production?</th>
+                  <th scope="col">Level</th>
+                  <th scope="col">When to Use</th>
+                  <th scope="col">Who Reads It</th>
+                  <th scope="col">In Production?</th>
                 </tr>
               </thead>
               <tbody>
@@ -3246,7 +3232,7 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
             </table>
           </div>
 
-          <h3>Structured Logging <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Structured Logging</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Log as <abbr title="JavaScript Object Notation">JSON</abbr>, not free-form strings. Structured logs are queryable. Free-form strings
             require regex gymnastics. Every log line should answer: when, what happened, in what
@@ -3266,9 +3252,7 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
     <span class="str">"duration_ms"</span>: elapsed
 })</code></pre>
 
-          <h3>
-            What Every Log Line Should Contain <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>What Every Log Line Should Contain</h3><span class="badge b-beginner">Beginner</span></div>
           <ul>
             <li><strong>Timestamp</strong> — ISO 8601, with milliseconds, UTC timezone</li>
             <li>
@@ -3314,16 +3298,16 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
             a proper debugger would take a fraction of the time.
           </p>
 
-          <h3>Core Debugger Actions <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Core Debugger Actions</h3><span class="badge b-beginner">Beginner</span></div>
 
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Action</th>
-                  <th>Key (VS Code)</th>
-                  <th>What It Does</th>
-                  <th>When to Use</th>
+                  <th scope="col">Action</th>
+                  <th scope="col">Key (VS Code)</th>
+                  <th scope="col">What It Does</th>
+                  <th scope="col">When to Use</th>
                 </tr>
               </thead>
               <tbody>
@@ -3361,7 +3345,7 @@ git bisect run <span class="fn">./scripts/test_repro.sh</span></code></pre>
             </table>
           </div>
 
-          <h3>Conditional Breakpoints <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Conditional Breakpoints</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             A conditional breakpoint only pauses when a specified expression evaluates to true. This
             is indispensable for bugs that only manifest on specific inputs or after N iterations of
@@ -3378,7 +3362,7 @@ user_id === <span class="str">"usr_problematic_9f3k"</span>
 <span class="cm">// Log message breakpoint (no pause — prints and continues):</span>
 <span class="cm">// Message: "Loop iteration {i}, value = {current_value}"</span></code></pre>
 
-          <h3>Watch Expressions <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Watch Expressions</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             The Watch panel evaluates arbitrary expressions at every pause. Use it to track derived
             state that is not stored in a single variable, such as
@@ -3386,7 +3370,7 @@ user_id === <span class="str">"usr_problematic_9f3k"</span>
             <code>response.data?.items[0]?.id</code>.
           </p>
 
-          <h3>The Call Stack Panel <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>The Call Stack Panel</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             When paused at a breakpoint, the call stack shows every active function frame. Click any
             frame to inspect its local variables. This is how you answer "how did execution get
@@ -3423,7 +3407,7 @@ user_id === <span class="str">"usr_problematic_9f3k"</span>
             services for a given request.
           </p>
 
-          <h3>Core Concepts <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Core Concepts</h3><span class="badge b-beginner">Beginner</span></div>
           <ul>
             <li>
               <strong>Trace</strong> — the complete record of a single request as it travels through
@@ -3445,9 +3429,7 @@ user_id === <span class="str">"usr_problematic_9f3k"</span>
             </li>
           </ul>
 
-          <h3>
-            OpenTelemetry: The 2026 Standard <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>OpenTelemetry: The 2026 Standard</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             OpenTelemetry (<abbr title="OpenTelemetry">OTel</abbr>) is now the industry-standard instrumentation framework. It provides
             vendor-neutral SDKs for traces, metrics, and logs that export to any backend (Jaeger,
@@ -3472,17 +3454,15 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
     result = <span class="fn">charge_card</span>(card, amount)
     span.<span class="fn">set_attribute</span>(<span class="str">"payment.success"</span>, result.success)</code></pre>
 
-          <h3>
-            Tracing Backends Comparison <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Tracing Backends Comparison</h3><span class="badge b-intermediate">Intermediate</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Tool</th>
-                  <th>Type</th>
-                  <th>Strengths</th>
-                  <th>Best For</th>
+                  <th scope="col">Tool</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Strengths</th>
+                  <th scope="col">Best For</th>
                 </tr>
               </thead>
               <tbody>
@@ -3524,10 +3504,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             </table>
           </div>
 
-          <h3>
-            <abbr title="extended Berkeley Packet Filter">eBPF</abbr>-Powered Zero-Code Tracing
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3><abbr title="extended Berkeley Packet Filter">eBPF</abbr>-Powered Zero-Code Tracing</h3><span class="badge b-expert">Expert</span></div>
           <p>
             Traditional distributed tracing requires adding instrumentation libraries to every
             service. In 2025–2026, eBPF-based tracing eliminates this by intercepting system calls
@@ -3538,10 +3515,10 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             <table class="spec-table">
               <thead>
                 <tr>
-                  <th>Tool</th>
-                  <th>Mechanism</th>
-                  <th>Output</th>
-                  <th>Best For</th>
+                  <th scope="col">Tool</th>
+                  <th scope="col">Mechanism</th>
+                  <th scope="col">Output</th>
+                  <th scope="col">Best For</th>
                 </tr>
               </thead>
               <tbody>
@@ -3587,10 +3564,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             </table>
           </div>
 
-          <h3>
-            OpenTelemetry 2026 Wire Format &amp; SDK Advances
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>OpenTelemetry 2026 Wire Format &amp; SDK Advances</h3><span class="badge b-expert">Expert</span></div>
           <p>The OTel ecosystem shipped several tracing-specific improvements in 2025–2026:</p>
           <ul>
             <li>
@@ -3652,9 +3626,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             optimization, every time.
           </p>
 
-          <h3>
-            The Three Performance Dimensions <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Three Performance Dimensions</h3><span class="badge b-beginner">Beginner</span></div>
           <ul>
             <li>
               <strong><abbr title="Central Processing Unit">CPU</abbr></strong> — time spent executing code. Identified by CPU profilers and
@@ -3683,7 +3655,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             </div>
           </div>
 
-          <h3>Flame Graphs: Reading CPU Profiles <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>Flame Graphs: Reading CPU Profiles</h3><span class="badge b-expert">Expert</span></div>
           <p>
             A flame graph represents a call stack where width equals time spent. The x-axis is not
             time progression — it is alphabetical ordering of the sampled stacks. Wide bars at the
@@ -3696,10 +3668,10 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             <table>
               <thead>
                 <tr>
-                  <th>Language</th>
-                  <th>CPU Profiler</th>
-                  <th>Memory Profiler</th>
-                  <th>I/O Profiler</th>
+                  <th scope="col">Language</th>
+                  <th scope="col">CPU Profiler</th>
+                  <th scope="col">Memory Profiler</th>
+                  <th scope="col">I/O Profiler</th>
                 </tr>
               </thead>
               <tbody>
@@ -3749,7 +3721,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             </table>
           </div>
 
-          <h3>The Profiling Decision Tree <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>The Profiling Decision Tree</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             Before profiling, you must know what kind of bottleneck you're looking for. The wrong
             profiler produces misleading data. CPU profiling won't show you memory leaks; memory
@@ -3759,10 +3731,10 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             <table>
               <thead>
                 <tr>
-                  <th>Symptom</th>
-                  <th>Likely Bottleneck</th>
-                  <th>Profile With</th>
-                  <th>Do Not Profile With</th>
+                  <th scope="col">Symptom</th>
+                  <th scope="col">Likely Bottleneck</th>
+                  <th scope="col">Profile With</th>
+                  <th scope="col">Do Not Profile With</th>
                 </tr>
               </thead>
               <tbody>
@@ -3800,10 +3772,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             </table>
           </div>
 
-          <h3>
-            Setting Performance Baselines &amp; Regression Thresholds
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Setting Performance Baselines &amp; Regression Thresholds</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             "It's slow" is not actionable. "P99 latency is 320ms; our baseline is 180ms; we have a
             78% regression" is. Baselines transform performance work from intuition into
@@ -3864,10 +3833,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             </div>
           </div>
 
-          <h3>
-            Continuous Profiling with eBPF
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Continuous Profiling with eBPF</h3><span class="badge b-expert">Expert</span></div>
           <p>
             Traditional profilers attach to a single process for a fixed duration. Continuous
             profilers run permanently, sampling all processes with negligible overhead (typically
@@ -3935,10 +3901,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             </div>
           </div>
 
-          <h3>
-            System-Wide eBPF Debugging Tools
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>System-Wide eBPF Debugging Tools</h3><span class="badge b-expert">Expert</span></div>
           <p>Beyond profiling, eBPF powers a growing ecosystem of system-level debugging tools:</p>
           <ul>
             <li>
@@ -3991,7 +3954,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             requests, wrong headers, or misunderstood status codes.
           </p>
 
-          <h3>The Network Debugging Toolkit <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>The Network Debugging Toolkit</h3><span class="badge b-beginner">Beginner</span></div>
           <div class="tool-grid">
             <div class="tool-card highlight">
               <div class="tc-name">curl</div>
@@ -4051,17 +4014,15 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             </div>
           </div>
 
-          <h3>
-            HTTP Status Code Diagnostic Table <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>HTTP Status Code Diagnostic Table</h3><span class="badge b-beginner">Beginner</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Code</th>
-                  <th>Meaning</th>
-                  <th>Common Cause</th>
-                  <th>Debug Path</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Meaning</th>
+                  <th scope="col">Common Cause</th>
+                  <th scope="col">Debug Path</th>
                 </tr>
               </thead>
               <tbody>
@@ -4129,10 +4090,7 @@ tracer = trace.<span class="fn">get_tracer</span>(<span class="str">"my_module"<
             </table>
           </div>
 
-          <h3>
-            The Complete Request Trace Workflow
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Complete Request Trace Workflow</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             When an API call fails or behaves unexpectedly, trace the request methodically from the
             client to the server and back. Each tool in this escalation ladder adds more visibility
@@ -4193,10 +4151,7 @@ curl --trace-ascii - https://api.example.com/health
 <span class="cm"># --resolve: test against specific IP without DNS (bypass CDN)</span>
 curl --resolve api.example.com:443:192.168.1.10 https://api.example.com/health</code></pre>
 
-          <h3>
-            Common Network False Positives &amp; Traps
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Common Network False Positives &amp; Traps</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Network debugging has a particularly high false positive rate because the same symptom
             can have many different causes, and the most obvious explanation is often wrong.
@@ -4205,9 +4160,9 @@ curl --resolve api.example.com:443:192.168.1.10 https://api.example.com/health</
             <table>
               <thead>
                 <tr>
-                  <th>Symptom</th>
-                  <th>Obvious Diagnosis (Often Wrong)</th>
-                  <th>Real Cause (Check This First)</th>
+                  <th scope="col">Symptom</th>
+                  <th scope="col">Obvious Diagnosis (Often Wrong)</th>
+                  <th scope="col">Real Cause (Check This First)</th>
                 </tr>
               </thead>
               <tbody>
@@ -4281,7 +4236,7 @@ curl --resolve api.example.com:443:192.168.1.10 https://api.example.com/health</
             point: examine the actual query being sent to the database.
           </p>
 
-          <h3>EXPLAIN / EXPLAIN ANALYZE <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>EXPLAIN / EXPLAIN ANALYZE</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Every SQL database provides an <code>EXPLAIN</code> command that shows the query
             execution plan — how the database intends to execute your query.
@@ -4300,7 +4255,7 @@ curl --resolve api.example.com:443:192.168.1.10 https://api.example.com/health</
 --            large actual vs. estimated row counts (stale statistics)
 --            Hash Join on huge sets (memory pressure)</span></code></pre>
 
-          <h3>The N+1 Query Problem <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>The N+1 Query Problem</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             The most common ORM-related performance bug: fetching a list of N records, then issuing
             one additional query per record to fetch related data. The result is N+1 queries where 1
@@ -4339,8 +4294,8 @@ users = User.<span class="fn">all</span>().<span class="fn">prefetch_related</sp
             <span class="plat p-bash"><abbr title="Structured Query Language">SQL</abbr></span>
           </h3>
           <p>
-            Before optimising, measure. Slow query logs and <code>pg_stat_statements</code> reveal
-            real bottlenecks — not the ones you assume. Always optimise the query with the highest
+            Before optimizing, measure. Slow query logs and <code>pg_stat_statements</code> reveal
+            real bottlenecks — not the ones you assume. Always optimize the query with the highest
             <em>total time</em>, not the single slowest individual run.
           </p>
           <pre tabindex="0" data-lang="sql" translate="no"><span class="code-lang" aria-hidden="true">SQL</span><code><span class="cm">-- PostgreSQL: enable and query pg_stat_statements</span>
@@ -4433,9 +4388,7 @@ ORDER BY idx_scan DESC;
             (use-after-free, buffer overflows, dangling pointers). Both require distinct tooling.
           </p>
 
-          <h3>
-            Memory Leaks in Managed Languages <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Memory Leaks in Managed Languages</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             In garbage-collected languages, a "memory leak" occurs when objects are retained by
             references that are never cleared — not because memory is not freed. Common culprits:
@@ -4458,9 +4411,7 @@ top_stats = snapshot.<span class="fn">statistics</span>(<span class="str">'linen
 <span class="cm"># python -m memray run --output mem.bin app.py</span>
 <span class="cm"># python -m memray flamegraph mem.bin</span></code></pre>
 
-          <h3>
-            Native Memory Errors: AddressSanitizer (<abbr title="AddressSanitizer">ASan</abbr>) <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Native Memory Errors: AddressSanitizer (<abbr title="AddressSanitizer">ASan</abbr>)</h3><span class="badge b-expert">Expert</span></div>
           <p>
             For C, C++, and Rust unsafe code, AddressSanitizer is the first tool to reach for. It
             instruments memory accesses at compile time and detects use-after-free, heap/stack
@@ -4491,9 +4442,7 @@ gcc -fsanitize=thread -g myapp.c -o myapp</code></pre>
             </div>
           </div>
 
-          <h3>
-            <abbr title="GNU Debugger">GDB</abbr>: Interactive Debugging for Native Code <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3><abbr title="GNU Debugger">GDB</abbr>: Interactive Debugging for Native Code</h3><span class="badge b-expert">Expert</span></div>
           <p>
             The GNU Debugger (gdb) remains the most powerful interactive debugger for C, C++, and
             any language that compiles to native code. Unlike sanitizers, gdb lets you pause
@@ -4556,15 +4505,15 @@ gdb -p 98765
             shared state more than dynamic debugging.
           </p>
 
-          <h3>Types of Concurrency Bugs <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Types of Concurrency Bugs</h3><span class="badge b-intermediate">Intermediate</span></div>
 
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Bug Type</th>
-                  <th>Definition</th>
-                  <th>Detection Tool</th>
+                  <th scope="col">Bug Type</th>
+                  <th scope="col">Definition</th>
+                  <th scope="col">Detection Tool</th>
                 </tr>
               </thead>
               <tbody>
@@ -4604,7 +4553,7 @@ gdb -p 98765
             </table>
           </div>
 
-          <h3>ThreadSanitizer (TSan) <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>ThreadSanitizer (TSan)</h3><span class="badge b-expert">Expert</span></div>
           <pre tabindex="0" data-lang="bash" translate="no"><span class="code-lang" aria-hidden="true">SHELL</span><code><span class="cm"># Compile with TSan (mutually exclusive with ASan)</span>
 gcc -fsanitize=thread -g -O1 myapp.c -o myapp
 ./myapp  <span class="cm"># TSan reports: "DATA RACE: write in thread T1, read in thread T2"</span>
@@ -4734,16 +4683,14 @@ SELECT pg_cancel_backend(&lt;blocker_pid&gt;);
             cuts debugging time by an order of magnitude.
           </p>
 
-          <h3>
-            The DevTools Panels You're Underusing <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The DevTools Panels You're Underusing</h3><span class="badge b-beginner">Beginner</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Panel</th>
-                  <th>What It Solves</th>
-                  <th>Power Feature</th>
+                  <th scope="col">Panel</th>
+                  <th scope="col">What It Solves</th>
+                  <th scope="col">Power Feature</th>
                 </tr>
               </thead>
               <tbody>
@@ -4784,7 +4731,7 @@ SELECT pg_cancel_backend(&lt;blocker_pid&gt;);
             </table>
           </div>
 
-          <h3>React-Specific Debugging <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>React-Specific Debugging</h3><span class="badge b-intermediate">Intermediate</span></div>
           <ul>
             <li>
               <strong>React DevTools</strong> — Inspect component tree, props, state, hooks;
@@ -4812,7 +4759,7 @@ SELECT pg_cancel_backend(&lt;blocker_pid&gt;);
             </div>
           </div>
 
-          <h3>Advanced Console API <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Advanced Console API</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             The browser console is far richer than <code>console.log</code>. These methods reduce
             the manual work of tracing call chains and visualizing structured data.
@@ -4821,9 +4768,9 @@ SELECT pg_cancel_backend(&lt;blocker_pid&gt;);
             <table>
               <thead>
                 <tr>
-                  <th>Method</th>
-                  <th>Purpose</th>
-                  <th>When to Use</th>
+                  <th scope="col">Method</th>
+                  <th scope="col">Purpose</th>
+                  <th scope="col">When to Use</th>
                 </tr>
               </thead>
               <tbody>
@@ -4901,7 +4848,7 @@ console.table(store.getState().cartItems);
             observability infrastructure.
           </p>
 
-          <h3>The Error Hierarchy <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>The Error Hierarchy</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Distinguish between three fundamentally different categories of errors, which require
             different handling strategies:
@@ -4911,10 +4858,10 @@ console.table(store.getState().cartItems);
             <table>
               <thead>
                 <tr>
-                  <th>Category</th>
-                  <th>Definition</th>
-                  <th>Examples</th>
-                  <th>Strategy</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Definition</th>
+                  <th scope="col">Examples</th>
+                  <th scope="col">Strategy</th>
                 </tr>
               </thead>
               <tbody>
@@ -4940,10 +4887,7 @@ console.table(store.getState().cartItems);
             </table>
           </div>
 
-          <h3>
-            The Golden Rules of Error Handling
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Golden Rules of Error Handling</h3><span class="badge b-intermediate">Intermediate</span></div>
           <ol>
             <li>
               <strong>Never silence exceptions without logging.</strong>
@@ -4979,7 +4923,7 @@ console.table(store.getState().cartItems);
             cause=e  <span class="cm"># preserve the original exception</span>
         ) <span class="kw">from</span> e  <span class="cm"># Python chained exceptions</span></code></pre>
 
-          <h3>Common Error Handling Mistakes <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Common Error Handling Mistakes</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             These patterns destroy debuggability. They are written by engineers who think they are
             handling errors but are actually just hiding them.
@@ -4988,9 +4932,9 @@ console.table(store.getState().cartItems);
             <table>
               <thead>
                 <tr>
-                  <th>Anti-Pattern</th>
-                  <th>Why It's Harmful</th>
-                  <th>Fix</th>
+                  <th scope="col">Anti-Pattern</th>
+                  <th scope="col">Why It's Harmful</th>
+                  <th scope="col">Fix</th>
                 </tr>
               </thead>
               <tbody>
@@ -5046,9 +4990,7 @@ console.table(store.getState().cartItems);
             </table>
           </div>
 
-          <h3>
-            False Positives in Error Logs <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>False Positives in Error Logs</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Not every error in your logs is a bug. Developing the judgment to distinguish real
             failures from expected noise is critical for effective debugging and alert tuning.
@@ -5057,9 +4999,9 @@ console.table(store.getState().cartItems);
             <table>
               <thead>
                 <tr>
-                  <th>Scenario</th>
-                  <th>Looks Like a Bug, But…</th>
-                  <th>How to Verify</th>
+                  <th scope="col">Scenario</th>
+                  <th scope="col">Looks Like a Bug, But…</th>
+                  <th scope="col">How to Verify</th>
                 </tr>
               </thead>
               <tbody>
@@ -5144,17 +5086,15 @@ console.table(store.getState().cartItems);
             that would otherwise require runtime conditions to surface.
           </p>
 
-          <h3>
-            Static Analysis Toolchain by Language <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Static Analysis Toolchain by Language</h3><span class="badge b-beginner">Beginner</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Language</th>
-                  <th>Type Checking</th>
-                  <th>Linting / Style</th>
-                  <th>Security SAST</th>
+                  <th scope="col">Language</th>
+                  <th scope="col">Type Checking</th>
+                  <th scope="col">Linting / Style</th>
+                  <th scope="col">Security SAST</th>
                 </tr>
               </thead>
               <tbody>
@@ -5274,10 +5214,7 @@ indent-style = <span class="str">"space"</span>
 <span class="cm"># Run: ruff format src/               (format like Black)</span>
 <span class="cm"># Run: ruff check src/ --select B     (targeted check)</span></code></pre>
 
-          <h3>
-            Pre-commit Hooks: Block Bad Code at the Gate
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Pre-commit Hooks: Block Bad Code at the Gate</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Pre-commit hooks run your static analysis before every commit. Bugs caught here never
             reach CI — and they never slow down a colleague's review.
@@ -5311,10 +5248,7 @@ repos:
 <span class="cm"># Install once: pip install pre-commit &amp;&amp; pre-commit install</span>
 <span class="cm"># Run manually: pre-commit run --all-files</span></code></pre>
 
-          <h3>
-            CI Integration: Fail Fast on Type Errors
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>CI Integration: Fail Fast on Type Errors</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Gate your pull requests on static analysis. This is the highest-ROI step in any CI
             pipeline — it prevents entire classes of runtime bug before any code is deployed.
@@ -5366,10 +5300,7 @@ jobs:
             </div>
           </div>
 
-          <h3>
-            Next-Generation SAST: AI-Augmented Analysis (2025–2026)
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Next-Generation SAST: AI-Augmented Analysis (2025–2026)</h3><span class="badge b-expert">Expert</span></div>
           <p>
             Static analysis in 2026 is fundamentally different from even a year ago. The two
             dominant open/commercial platforms — Semgrep and SonarQube — have both shipped
@@ -5484,9 +5415,7 @@ jobs:
             full observability stack is three pillars: metrics, logs, and traces.
           </p>
 
-          <h3>
-            The Three Pillars of Observability <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Three Pillars of Observability</h3><span class="badge b-beginner">Beginner</span></div>
           <div class="spec-grid">
             <div class="spec-card accent">
               <div class="sc-label">Pillar 1</div>
@@ -5514,7 +5443,7 @@ jobs:
             </div>
           </div>
 
-          <h3>Error Tracking: Sentry <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Error Tracking: Sentry</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Sentry is the de facto standard for application error tracking. Every unhandled
             exception is automatically captured with full stack trace, breadcrumbs (events leading
@@ -5538,10 +5467,7 @@ sentry_sdk.<span class="fn">init</span>(
 sentry_sdk.<span class="fn">set_user</span>({<span class="str">"id"</span>: user_id, <span class="str">"email"</span>: email})
 sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</span>, flag_value)</code></pre>
 
-          <h3>
-            The Four Golden Signals (Google SRE)
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Four Golden Signals (Google SRE)</h3><span class="badge b-intermediate">Intermediate</span></div>
           <ul>
             <li>
               <strong>Latency</strong> — How long requests take. Track P50, P95, P99 — not just
@@ -5561,10 +5487,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             </li>
           </ul>
 
-          <h3>
-            Alert Fatigue: Diagnosis &amp; Cure
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Alert Fatigue: Diagnosis &amp; Cure</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Alert fatigue occurs when an on-call team receives so many alerts — many of which are
             false positives or non-actionable — that they begin to ignore or dismiss pages without
@@ -5613,7 +5536,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             </div>
           </div>
 
-          <h3><abbr title="Service Level Objective">SLO</abbr>-Driven Debugging: Burn Rate Alerts <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3><abbr title="Service Level Objective">SLO</abbr>-Driven Debugging: Burn Rate Alerts</h3><span class="badge b-expert">Expert</span></div>
           <p>
             Service Level Objectives (SLOs) define your error budget: the acceptable amount of
             downtime or errors over a rolling period (e.g., 99.9% uptime = 43.8 min/month). Burn
@@ -5624,10 +5547,10 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             <table>
               <thead>
                 <tr>
-                  <th>Burn Rate</th>
-                  <th>Meaning</th>
-                  <th>Window</th>
-                  <th>Action</th>
+                  <th scope="col">Burn Rate</th>
+                  <th scope="col">Meaning</th>
+                  <th scope="col">Window</th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -5677,10 +5600,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
 <span class="kw">annotations</span>:
   summary: <span class="str">"Burning error budget 14x too fast — page immediately"</span></code></pre>
 
-          <h3>
-            The Fourth Pillar: Continuous Profiling
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Fourth Pillar: Continuous Profiling</h3><span class="badge b-expert">Expert</span></div>
           <p>
             The traditional three pillars (metrics, logs, traces) are expanding. OpenTelemetry
             declared <strong>Profiles</strong> an alpha-stage fourth signal in early 2026, with
@@ -5703,10 +5623,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             </div>
           </div>
 
-          <h3>
-            eBPF-Based Observability: Zero-Code Instrumentation
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>eBPF-Based Observability: Zero-Code Instrumentation</h3><span class="badge b-expert">Expert</span></div>
           <p>
             eBPF (extended Berkeley Packet Filter) allows attaching observability probes directly to
             the Linux kernel without modifying application code, container images, or sidecars. In
@@ -5756,10 +5673,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             </div>
           </div>
 
-          <h3>
-            OpenTelemetry Ecosystem: 2026 Maturity Milestones
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>OpenTelemetry Ecosystem: 2026 Maturity Milestones</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             OpenTelemetry is now the second most active CNCF project (after Kubernetes). Key
             2025–2026 milestones that affect your observability stack:
@@ -5817,7 +5731,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             distractions.
           </p>
 
-          <h3>What AI Assistants Are Good At <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>What AI Assistants Are Good At</h3><span class="badge b-beginner">Beginner</span></div>
           <ul>
             <li>
               <strong>Error message decoding</strong> — Explaining what a cryptic error message
@@ -5842,9 +5756,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             </li>
           </ul>
 
-          <h3>
-            What AI Assistants Are Bad At <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>What AI Assistants Are Bad At</h3><span class="badge b-intermediate">Intermediate</span></div>
           <ul>
             <li>
               <strong>Intermittent, environment-specific bugs</strong> — Without access to the
@@ -5865,9 +5777,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
             </li>
           </ul>
 
-          <h3>
-            The Effective AI Debugging Prompt <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Effective AI Debugging Prompt</h3><span class="badge b-intermediate">Intermediate</span></div>
           <pre tabindex="0" data-lang="text" translate="no"><span class="code-lang" aria-hidden="true">TEMPLATE</span><code><span class="cm">// Template for maximum AI debugging effectiveness</span>
 
 <span class="cm">// 1. Provide full context — don't summarize the error</span>
@@ -5887,7 +5797,7 @@ sentry_sdk.<span class="fn">set_tag</span>(<span class="str">"feature_flag"</spa
 <span class="cm">// 5. Ask for hypotheses, not just a fix</span>
 <span class="str">"What are 3 plausible causes of this error? What would I check to rule each one out?"</span></code></pre>
 
-          <h3>Claude Code as a Debugging Agent <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>Claude Code as a Debugging Agent</h3><span class="badge b-expert">Expert</span></div>
           <p>
             Claude Code (Anthropic's agentic CLI tool) can be used for multi-step debugging
             workflows where it reads files, executes tests, reads outputs, forms hypotheses, and
@@ -5907,10 +5817,7 @@ claude
 <span class="str">"This function returns incorrect totals for orders with discounts.</span>
 <span class="str"> Read the relevant code, trace the calculation, and identify the bug."</span></code></pre>
 
-          <h3>
-            The AC/DC Paradigm: Agent-Centric Development Cycles
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The AC/DC Paradigm: Agent-Centric Development Cycles</h3><span class="badge b-expert">Expert</span></div>
           <p>
             SonarSource coined <strong>AC/DC</strong> — <em>Agent-Centric Development Cycle</em> —
             to describe the emerging pattern where AI coding agents and static analysis tools form a
@@ -5951,10 +5858,7 @@ claude
             </div>
           </div>
 
-          <h3>
-            Multi-Agent Debugging Workflows
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Multi-Agent Debugging Workflows</h3><span class="badge b-expert">Expert</span></div>
           <p>
             Beyond single-agent debugging, 2026 saw the rise of
             <strong>multi-agent architectures</strong> for complex debugging scenarios. These
@@ -6008,10 +5912,7 @@ claude
             problem to the AI" and "give the AI direct access to all evidence."
           </p>
 
-          <h3>
-            High-Value MCP Servers for Debugging
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>High-Value MCP Servers for Debugging</h3><span class="badge b-intermediate">Intermediate</span></div>
           <div class="tool-grid">
             <div class="tool-card highlight">
               <div class="tc-name">GitHub MCP</div>
@@ -6080,10 +5981,7 @@ claude
             </div>
           </div>
 
-          <h3>
-            The MCP Ecosystem in 2026
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The MCP Ecosystem in 2026</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             The <a class="ext" href="https://modelcontextprotocol.io" rel="noopener noreferrer">Model Context Protocol</a>
             (MCP) has become the standard interface between AI coding agents and external tools.
@@ -6111,7 +6009,7 @@ claude
             servers maintained by the tool vendor (official &gt; community).
           </p>
 
-          <h3>MCP-Powered Debugging Workflow <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>MCP-Powered Debugging Workflow</h3><span class="badge b-expert">Expert</span></div>
           <pre tabindex="0" data-lang="text" translate="no"><span class="code-lang" aria-hidden="true">EXAMPLE</span><code><span class="cm">// Example: Full production debug session with MCP tools</span>
 
 <span class="cm">// 1. User reports: "Checkout is failing for some users"</span>
@@ -6129,9 +6027,7 @@ claude
 
 <span class="cm">// Correlation is complete: regression introduced by last deploy</span></code></pre>
 
-          <h3>
-            MCP Debugging Setup: Step-by-Step <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>MCP Debugging Setup: Step-by-Step</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             Get your first MCP server running in your AI assistant in under 10 minutes. The
             following workflow uses VS Code with GitHub Copilot or Claude Desktop.
@@ -6192,16 +6088,14 @@ claude
   }
 }</code></pre>
 
-          <h3>
-            Which MCP for Which Problem <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Which MCP for Which Problem</h3><span class="badge b-intermediate">Intermediate</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Bug Type / Situation</th>
-                  <th>Best MCP Server</th>
-                  <th>What to Ask</th>
+                  <th scope="col">Bug Type / Situation</th>
+                  <th scope="col">Best MCP Server</th>
+                  <th scope="col">What to Ask</th>
                 </tr>
               </thead>
               <tbody>
@@ -6271,15 +6165,15 @@ claude
             functional. Traditional debugging tools are blind to this.
           </p>
 
-          <h3>The Agent Failure Taxonomy <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>The Agent Failure Taxonomy</h3><span class="badge b-expert">Expert</span></div>
 
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Failure Type</th>
-                  <th>Symptom</th>
-                  <th>Debug Approach</th>
+                  <th scope="col">Failure Type</th>
+                  <th scope="col">Symptom</th>
+                  <th scope="col">Debug Approach</th>
                 </tr>
               </thead>
               <tbody>
@@ -6317,7 +6211,7 @@ claude
             </table>
           </div>
 
-          <h3>Agent Observability Platforms <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>Agent Observability Platforms</h3><span class="badge b-expert">Expert</span></div>
           <div class="tool-grid">
             <div class="tool-card highlight">
               <div class="tc-name">
@@ -6379,9 +6273,7 @@ claude
             </div>
           </div>
 
-          <h3>
-            Instrumenting an Agent with OpenTelemetry <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Instrumenting an Agent with OpenTelemetry</h3><span class="badge b-expert">Expert</span></div>
           <pre tabindex="0" data-lang="python" translate="no"><span class="code-lang" aria-hidden="true">PYTHON</span><code><span class="cm"># Langfuse v4 — trace any LLM app with one decorator</span>
 <span class="kw">from</span> langfuse <span class="kw">import</span> get_client
 <span class="kw">from</span> langfuse.decorators <span class="kw">import</span> observe
@@ -6401,7 +6293,7 @@ langfuse = <span class="fn">get_client</span>()
         )
         <span class="kw">return</span> result</code></pre>
 
-          <h3>The AI Agent Debug Workflow <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>The AI Agent Debug Workflow</h3><span class="badge b-expert">Expert</span></div>
           <p>
             When an AI agent produces wrong output, the debugging process is systematic but differs
             from traditional code debugging. Follow this structured investigation.
@@ -6462,9 +6354,7 @@ langfuse = <span class="fn">get_client</span>()
             </div>
           </div>
 
-          <h3>
-            Evaluating Agent Quality: Building Evals <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Evaluating Agent Quality: Building Evals</h3><span class="badge b-expert">Expert</span></div>
           <p>
             Every resolved agent bug should become a permanent test case. An eval dataset is the
             CI/CD pipeline for AI agents — it prevents regressions as prompts, models, and tools
@@ -6515,7 +6405,7 @@ braintrust.<span class="fn">Eval</span>(
             return a diagnosis — in minutes rather than hours.
           </p>
 
-          <h3>The Autonomous Debug Loop <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>The Autonomous Debug Loop</h3><span class="badge b-expert">Expert</span></div>
 
           <div class="pipeline-box" tabindex="0" role="region" aria-label="Process steps">
             <div class="p-step">
@@ -6545,15 +6435,15 @@ braintrust.<span class="fn">Eval</span>(
             </div>
           </div>
 
-          <h3>Tools Enabling Agentic Debugging <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>Tools Enabling Agentic Debugging</h3><span class="badge b-expert">Expert</span></div>
 
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Tool</th>
-                  <th>Capability</th>
-                  <th>Integration</th>
+                  <th scope="col">Tool</th>
+                  <th scope="col">Capability</th>
+                  <th scope="col">Integration</th>
                 </tr>
               </thead>
               <tbody>
@@ -6605,10 +6495,7 @@ braintrust.<span class="fn">Eval</span>(
             </div>
           </div>
 
-          <h3>
-            When to Use Agents vs Manual Debugging
-            <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>When to Use Agents vs Manual Debugging</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             Agentic debugging tools are powerful but not universally appropriate. Apply them where
             they amplify human judgment — not where they replace the understanding you need to own.
@@ -6617,9 +6504,9 @@ braintrust.<span class="fn">Eval</span>(
             <table>
               <thead>
                 <tr>
-                  <th>Factor</th>
-                  <th>Use Agent</th>
-                  <th>Debug Manually</th>
+                  <th scope="col">Factor</th>
+                  <th scope="col">Use Agent</th>
+                  <th scope="col">Debug Manually</th>
                 </tr>
               </thead>
               <tbody>
@@ -6655,10 +6542,7 @@ braintrust.<span class="fn">Eval</span>(
             </table>
           </div>
 
-          <h3>
-            Safe Integration: Reviewing Agentic Fixes
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Safe Integration: Reviewing Agentic Fixes</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             When an AI agent proposes a fix — whether from Claude Code, Cursor, or an autonomous
             debug loop — apply this review checklist before merging. The agent may fix the stated
@@ -6702,10 +6586,7 @@ braintrust.<span class="fn">Eval</span>(
             two under stress leads to longer outages and worse postmortems.
           </p>
 
-          <h3>
-            The Production Incident Hierarchy of Priorities
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Production Incident Hierarchy of Priorities</h3><span class="badge b-expert">Expert</span></div>
           <ol>
             <li>
               <strong>Mitigate.</strong> Stop the bleeding. Roll back, disable the feature flag,
@@ -6723,17 +6604,14 @@ braintrust.<span class="fn">Eval</span>(
             <li><strong>Postmortem.</strong> Write it within 48 hours while memory is fresh.</li>
           </ol>
 
-          <h3>
-            Feature Flags: The Most Powerful Production Debug Tool
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Feature Flags: The Most Powerful Production Debug Tool</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Feature flags decouple deployment from release. If every feature is gated by a flag, any
             bug can be mitigated in seconds by disabling the flag — with zero deployment required.
             This turns a 45-minute rollback into a 30-second flag toggle.
           </p>
 
-          <h3>Production-Safe Debugging Techniques <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>Production-Safe Debugging Techniques</h3><span class="badge b-expert">Expert</span></div>
           <ul>
             <li>
               <strong>Sampling-based tracing</strong> — Enable verbose tracing for 1-5% of requests
@@ -6765,9 +6643,7 @@ braintrust.<span class="fn">Eval</span>(
             </div>
           </div>
 
-          <h3>
-            The 15-Minute Production Incident Protocol <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The 15-Minute Production Incident Protocol</h3><span class="badge b-expert">Expert</span></div>
           <p>
             The first 15 minutes of a production incident determine the outcome. Resist the instinct
             to investigate immediately — mitigate first, understand second. Every minute spent
@@ -6828,10 +6704,7 @@ braintrust.<span class="fn">Eval</span>(
             </div>
           </div>
 
-          <h3>
-            Reading Production Evidence Without Touching Production
-            <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Reading Production Evidence Without Touching Production</h3><span class="badge b-expert">Expert</span></div>
           <p>
             The safest production debugging principle: gather all evidence from read-only systems.
             Never write to production, even for diagnostic purposes.
@@ -6840,9 +6713,9 @@ braintrust.<span class="fn">Eval</span>(
             <table>
               <thead>
                 <tr>
-                  <th>Evidence Type</th>
-                  <th>Safe Source</th>
-                  <th>Unsafe (Avoid)</th>
+                  <th scope="col">Evidence Type</th>
+                  <th scope="col">Safe Source</th>
+                  <th scope="col">Unsafe (Avoid)</th>
                 </tr>
               </thead>
               <tbody>
@@ -6902,15 +6775,15 @@ braintrust.<span class="fn">Eval</span>(
             machine" problems are environment problems, not code problems.
           </p>
 
-          <h3>CI Failure Taxonomy <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>CI Failure Taxonomy</h3><span class="badge b-intermediate">Intermediate</span></div>
 
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Failure Type</th>
-                  <th>Symptoms</th>
-                  <th>Resolution</th>
+                  <th scope="col">Failure Type</th>
+                  <th scope="col">Symptoms</th>
+                  <th scope="col">Resolution</th>
                 </tr>
               </thead>
               <tbody>
@@ -6954,9 +6827,7 @@ braintrust.<span class="fn">Eval</span>(
             </table>
           </div>
 
-          <h3>
-            Reproduce CI Failures Locally <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Reproduce CI Failures Locally</h3><span class="badge b-intermediate">Intermediate</span></div>
           <pre tabindex="0" data-lang="bash" translate="no"><span class="code-lang" aria-hidden="true">BASH</span><code><span class="cm"># Reproduce GitHub Actions environment locally with act</span>
 brew install act
 act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
@@ -6970,9 +6841,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
     docker info
     cat /etc/os-release</code></pre>
 
-          <h3>
-            The Flaky Test Triage Workflow <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The Flaky Test Triage Workflow</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Flaky tests — tests that sometimes pass and sometimes fail without code changes — are
             one of the most destructive forces in a CI/CD pipeline. Every false failure costs
@@ -7028,9 +6897,9 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             <table>
               <thead>
                 <tr>
-                  <th>Flaky Pattern</th>
-                  <th>Symptom</th>
-                  <th>Fix</th>
+                  <th scope="col">Flaky Pattern</th>
+                  <th scope="col">Symptom</th>
+                  <th scope="col">Fix</th>
                 </tr>
               </thead>
               <tbody>
@@ -7062,7 +6931,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </table>
           </div>
 
-          <h3>CI Debugging Step-by-Step <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>CI Debugging Step-by-Step</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             Your build passed locally but failed in CI. Here is the complete beginner workflow for
             diagnosing CI failures — no CI expertise required.
@@ -7115,7 +6984,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             fail" — and then changing the system, not just the symptom.
           </p>
 
-          <h3>The Five Whys <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>The Five Whys</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             Asking "why?" five times in succession typically moves from symptom to root cause,
             traversing organizational, process, and systemic layers that the initial technical cause
@@ -7142,7 +7011,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </div>
           </div>
 
-          <h3>Blameless Postmortems <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Blameless Postmortems</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             The goal of a postmortem is systemic improvement, not accountability assignment. Google
             SRE, Netflix, and Etsy have all pioneered the blameless postmortem culture: the
@@ -7178,9 +7047,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
   - [Specific, owned, time-bound changes to prevent recurrence]
   - Owner: [Name] · Due: [Date]</code></pre>
 
-          <h3>
-            Building the Incident Timeline <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Building the Incident Timeline</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             The incident timeline is the backbone of any postmortem. An accurate timeline reveals
             detection lag (how long the incident ran before anyone knew), response lag (how long
@@ -7244,7 +7111,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </div>
           </div>
 
-          <h3>Action Items That Get Done <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Action Items That Get Done</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             The most common cause of postmortem failure is vague action items that no one owns and
             no one completes. An action item that doesn't prevent the next incident is worse than no
@@ -7254,9 +7121,9 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             <table>
               <thead>
                 <tr>
-                  <th>Bad Action Item</th>
-                  <th>Why It Fails</th>
-                  <th>Good Action Item</th>
+                  <th scope="col">Bad Action Item</th>
+                  <th scope="col">Why It Fails</th>
+                  <th scope="col">Good Action Item</th>
                 </tr>
               </thead>
               <tbody>
@@ -7322,15 +7189,15 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             category. All entries are actively maintained and production-tested.
           </p>
 
-          <h3>Universal Debugging <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Universal Debugging</h3><span class="badge b-beginner">Beginner</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Tool</th>
-                  <th>Purpose</th>
-                  <th>Free?</th>
-                  <th>URL</th>
+                  <th scope="col">Tool</th>
+                  <th scope="col">Purpose</th>
+                  <th scope="col">Free?</th>
+                  <th scope="col">URL</th>
                 </tr>
               </thead>
               <tbody>
@@ -7374,16 +7241,14 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </table>
           </div>
 
-          <h3>
-            Observability &amp; Monitoring <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Observability &amp; Monitoring</h3><span class="badge b-intermediate">Intermediate</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Tool</th>
-                  <th>Category</th>
-                  <th>Tier</th>
+                  <th scope="col">Tool</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Tier</th>
                 </tr>
               </thead>
               <tbody>
@@ -7425,14 +7290,14 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </table>
           </div>
 
-          <h3>Network &amp; Protocol <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Network &amp; Protocol</h3><span class="badge b-intermediate">Intermediate</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Tool</th>
-                  <th>Use Case</th>
-                  <th>Platform</th>
+                  <th scope="col">Tool</th>
+                  <th scope="col">Use Case</th>
+                  <th scope="col">Platform</th>
                 </tr>
               </thead>
               <tbody>
@@ -7470,14 +7335,14 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </table>
           </div>
 
-          <h3>Memory &amp; Native Debugging <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>Memory &amp; Native Debugging</h3><span class="badge b-expert">Expert</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Tool</th>
-                  <th>What It Finds</th>
-                  <th>Language</th>
+                  <th scope="col">Tool</th>
+                  <th scope="col">What It Finds</th>
+                  <th scope="col">Language</th>
                 </tr>
               </thead>
               <tbody>
@@ -7514,14 +7379,14 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </table>
           </div>
 
-          <h3>AI Agent Debugging <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>AI Agent Debugging</h3><span class="badge b-expert">Expert</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Tool</th>
-                  <th>Speciality</th>
-                  <th>OSS?</th>
+                  <th scope="col">Tool</th>
+                  <th scope="col">Speciality</th>
+                  <th scope="col">OSS?</th>
                 </tr>
               </thead>
               <tbody>
@@ -7554,14 +7419,14 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </table>
           </div>
 
-          <h3>eBPF &amp; Continuous Profiling <span class="badge b-expert">Expert</span></h3>
+          <div class="heading-row heading-row-3"><h3>eBPF &amp; Continuous Profiling</h3><span class="badge b-expert">Expert</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>Tool</th>
-                  <th>Speciality</th>
-                  <th>OSS?</th>
+                  <th scope="col">Tool</th>
+                  <th scope="col">Speciality</th>
+                  <th scope="col">OSS?</th>
                 </tr>
               </thead>
               <tbody>
@@ -7613,14 +7478,14 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </table>
           </div>
 
-          <h3>MCP Servers for Debugging <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>MCP Servers for Debugging</h3><span class="badge b-intermediate">Intermediate</span></div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>MCP Server</th>
-                  <th>Data Exposed</th>
-                  <th>Official?</th>
+                  <th scope="col">MCP Server</th>
+                  <th scope="col">Data Exposed</th>
+                  <th scope="col">Official?</th>
                 </tr>
               </thead>
               <tbody>
@@ -7675,24 +7540,21 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
 
           <p class="lead">
             Years of debugging reveal recurring failure patterns — habits that feel productive but
-            actively impede resolution. Recognising these anti-patterns in your own workflow is the
+            actively impede resolution. Recognizing these anti-patterns in your own workflow is the
             first step toward replacing them with the disciplined practices covered throughout this
             manual.
           </p>
 
-          <h3>
-            The 10 Most Expensive Debugging Anti-Patterns
-            <span class="badge b-beginner">Beginner</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>The 10 Most Expensive Debugging Anti-Patterns</h3><span class="badge b-beginner">Beginner</span></div>
 
           <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable table">
             <table>
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Anti-Pattern</th>
-                  <th>Why It's Harmful</th>
-                  <th>Alternative</th>
+                  <th scope="col">#</th>
+                  <th scope="col">Anti-Pattern</th>
+                  <th scope="col">Why It's Harmful</th>
+                  <th scope="col">Alternative</th>
                 </tr>
               </thead>
               <tbody>
@@ -7784,9 +7646,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </table>
           </div>
 
-          <h3>
-            Organizational &amp; Process Anti-Patterns <span class="badge b-expert">Expert</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Organizational &amp; Process Anti-Patterns</h3><span class="badge b-expert">Expert</span></div>
           <p>
             Anti-patterns are not limited to individual technique. The most expensive bugs often
             survive because of organizational habits that inhibit clear diagnosis.
@@ -7803,9 +7663,9 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             <table>
               <thead>
                 <tr>
-                  <th>Anti-Pattern</th>
-                  <th>Organizational Signal</th>
-                  <th>Systemic Fix</th>
+                  <th scope="col">Anti-Pattern</th>
+                  <th scope="col">Organizational Signal</th>
+                  <th scope="col">Systemic Fix</th>
                 </tr>
               </thead>
               <tbody>
@@ -7838,7 +7698,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </table>
           </div>
 
-          <h3>The False Positive Trap <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>The False Positive Trap</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             False positives in debugging are situations that look exactly like bugs but are actually
             correct behavior, expected errors, or environment noise. Mistaking them for bugs wastes
@@ -7848,10 +7708,10 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             <table>
               <thead>
                 <tr>
-                  <th>Situation</th>
-                  <th>Looks Like a Bug</th>
-                  <th>Actually Is</th>
-                  <th>How to Verify</th>
+                  <th scope="col">Situation</th>
+                  <th scope="col">Looks Like a Bug</th>
+                  <th scope="col">Actually Is</th>
+                  <th scope="col">How to Verify</th>
                 </tr>
               </thead>
               <tbody>
@@ -7889,10 +7749,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </table>
           </div>
 
-          <h3>
-            Recognizing Your Own Cognitive Biases
-            <span class="badge b-intermediate">Intermediate</span>
-          </h3>
+          <div class="heading-row heading-row-3"><h3>Recognizing Your Own Cognitive Biases</h3><span class="badge b-intermediate">Intermediate</span></div>
           <p>
             Debugging is a cognitive task performed under uncertainty. Every engineer carries biases
             that systematically distort their debugging judgment. Recognizing them is the first step
@@ -7902,9 +7759,9 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             <table>
               <thead>
                 <tr>
-                  <th>Bias</th>
-                  <th>How It Manifests in Debugging</th>
-                  <th>Antidote</th>
+                  <th scope="col">Bias</th>
+                  <th scope="col">How It Manifests in Debugging</th>
+                  <th scope="col">Antidote</th>
                 </tr>
               </thead>
               <tbody>
@@ -7992,7 +7849,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             through the full protocol top-to-bottom.
           </p>
 
-          <h3>Pre-Debug Protocol <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Pre-Debug Protocol</h3><span class="badge b-beginner">Beginner</span></div>
           <h4>Before You Start</h4>
           <ul class="checklist">
             <li class="cat">Problem Definition</li>
@@ -8016,7 +7873,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </li>
           </ul>
 
-          <h3>Investigation Mechanics <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Investigation Mechanics</h3><span class="badge b-intermediate">Intermediate</span></div>
           <h4>During Investigation</h4>
           <ul class="checklist">
             <li class="cat">Evidence Collection</li>
@@ -8039,7 +7896,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             <li>Understood AI-suggested fix before applying it</li>
           </ul>
 
-          <h3>Post-Fix Quality Gates <span class="badge b-intermediate">Intermediate</span></h3>
+          <div class="heading-row heading-row-3"><h3>Post-Fix Quality Gates</h3><span class="badge b-intermediate">Intermediate</span></div>
           <h4>After Fixing</h4>
           <ul class="checklist">
             <li class="cat">Fix Quality</li>
@@ -8060,7 +7917,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             <li>Has the team been informed if the bug represents a pattern risk?</li>
           </ul>
 
-          <h3>Situation-Specific Checklists <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Situation-Specific Checklists</h3><span class="badge b-beginner">Beginner</span></div>
           <p>
             These micro-checklists get you unstuck in the first 5 minutes for the five most common
             debugging scenarios. Use the master checklist above for thorough investigation; use
@@ -8132,7 +7989,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             return to most often — curated for depth and practical value.
           </p>
 
-          <h3>Essential Books <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Essential Books</h3><span class="badge b-beginner">Beginner</span></div>
           <ul class="ref-list">
             <li>
               <span class="rl-tag">Beginner</span><cite>The Pragmatic Programmer</cite> — Andrew
@@ -8166,7 +8023,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </li>
           </ul>
 
-          <h3>Tools Index by Category <span class="badge b-beginner">Beginner</span></h3>
+          <div class="heading-row heading-row-3"><h3>Tools Index by Category</h3><span class="badge b-beginner">Beginner</span></div>
           <ul class="ref-list">
             <li>
               <span class="rl-tag">Error Track</span
@@ -8330,7 +8187,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
           <div>
             <div class="footer-brand">Debugging Field Manual</div>
             <p class="footer-meta-desc">
-              Complete Edition — 30 Sections · Language-Agnostic · AI-Augmented Workflows
+              Complete Edition — 29 Sections · Language-Agnostic · AI-Augmented Workflows
             </p>
             <p class="footer-meta-desc" style="margin-top: 6px; font-size: 11px; color: var(--ink-400);">
               Version 2026.2.0 · Published 2026-07-24 · Updated 2026-07-24 (ISO 8601)
@@ -8346,6 +8203,7 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
             </span>
             <a href="#cover" class="return-to-top-link">↑ Return to top</a>
           </div>
+        <nav class="series-links" aria-label="More guides from Made in Jurgistan"><strong>More guides in the series</strong><ul><li><a href="https://Made-in-Jurgistan.github.io/mobile-stt-engineering-guide/">Mobile Speech-to-Text Engineering Guide</a></li><li><a href="https://Made-in-Jurgistan.github.io/android-keyboard-design-guide/">Android Keyboard Design Guide</a></li><li><a href="https://Made-in-Jurgistan.github.io/android-keyboard-design-guide-3d-personalization/">Android Keyboard Design Guide: 3D &amp; Personalization</a></li><li><a href="https://Made-in-Jurgistan.github.io/superclaude-field-guide/">The SuperClaude Field Guide</a></li></ul></nav>
         </footer>
         </div>
         <!-- /.content-inner -->
@@ -8387,5 +8245,24 @@ act -j build  <span class="cm"># runs the 'build' job locally in Docker</span>
       })();
     </script>
 
+      <script>
+      (function () {
+        'use strict';
+        if (!navigator.clipboard) return;
+        var ico = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8.5" y="8.5" width="12" height="12" rx="2"/><path d="M15.5 8.5V5.5a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></svg>';
+        document.querySelectorAll('pre > code').forEach(function (code) {
+          var pre = code.parentElement, btn = document.createElement('button');
+          btn.type = 'button'; btn.className = 'copy-btn'; btn.setAttribute('aria-label', 'Copy code to clipboard');
+          btn.innerHTML = ico + '<span>Copy</span>';
+          btn.addEventListener('click', function () {
+            navigator.clipboard.writeText(code.textContent.replace(/\n$/, '')).then(function () {
+              var label = btn.querySelector('span'); label.textContent = 'Copied';
+              setTimeout(function () { label.textContent = 'Copy'; }, 1400);
+            });
+          });
+          pre.appendChild(btn);
+        });
+      })();
+    </script>
   </body>
 </html>
